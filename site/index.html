@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Hmmzzz 的 iOS Rootless 与 RootHide APT 软件源。">
+  <link rel="icon" href="data:,">
+  <title>Hmmzzz Repo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      --background: #080b10;
+      --surface: rgba(18, 23, 32, .84);
+      --surface-solid: #121720;
+      --surface-raised: #181e29;
+      --text: #f5f7fb;
+      --muted: #a7b0bf;
+      --quiet: #788394;
+      --accent: #9bbcff;
+      --accent-strong: #b8ceff;
+      --accent-ink: #08101f;
+      --border: rgba(255, 255, 255, .1);
+      --border-strong: rgba(255, 255, 255, .16);
+      --shadow-card: 0 30px 80px rgba(0, 0, 0, .42);
+      --shadow-dialog: 0 32px 100px rgba(0, 0, 0, .62);
+      --ease-out: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--background);
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      padding-top: max(28px, env(safe-area-inset-top));
+      padding-bottom: max(28px, env(safe-area-inset-bottom));
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(91, 141, 239, .22), transparent 38%),
+        radial-gradient(circle at 80% 90%, rgba(118, 84, 218, .18), transparent 42%),
+        var(--background);
+      color: var(--text);
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      content: "";
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .45), transparent 70%);
+      pointer-events: none;
+    }
+
+    body.dialog-open {
+      overflow: hidden;
+    }
+
+    ::selection {
+      color: var(--accent-ink);
+      background: var(--accent);
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    main {
+      width: min(720px, 100%);
+      padding: clamp(28px, 6vw, 56px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(20px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #8fb5ff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 9vw, 72px);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+
+    .intro {
+      max-width: 600px;
+      margin: 22px 0 30px;
+      color: #b7c0cf;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .source {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 26px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, .25);
+    }
+
+    code {
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: anywhere;
+      color: #dce7ff;
+      font: 600 13px/1.5 ui-monospace, "SFMono-Regular", Menlo, monospace;
+    }
+
+    .copy-button,
+    .action-button,
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 720;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 160ms ease, background 160ms ease, border-color 160ms ease,
+        transform 160ms var(--ease-out);
+    }
+
+    .copy-button {
+      min-height: 38px;
+      padding: 10px 14px;
+      color: var(--accent-ink);
+      background: var(--accent);
+    }
+
+    .copy-button svg,
+    .action-button svg,
+    .download-button svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+    }
+
+    .copy-button:hover {
+      background: var(--accent-strong);
+    }
+
+    .copy-button.is-copied {
+      background: #a8e6c0;
+    }
+
+    .copy-button:active,
+    .action-button:active,
+    .download-button:active {
+      transform: scale(.97);
+    }
+
+    .targets {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .target {
+      padding: 17px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .target strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .target span {
+      color: #909bad;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .action-button {
+      min-height: 42px;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      color: #dce7ff;
+      background: rgba(255, 255, 255, .055);
+    }
+
+    .action-button:hover {
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, .09);
+    }
+
+    .action-button.primary {
+      border-color: rgba(155, 188, 255, .24);
+      color: #dfe9ff;
+      background: rgba(126, 165, 243, .13);
+    }
+
+    .action-button.primary:hover {
+      border-color: rgba(155, 188, 255, .36);
+      background: rgba(126, 165, 243, .19);
+    }
+
+    .source-note {
+      margin: 18px 0 0;
+      color: var(--quiet);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .dialog-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .dialog-backdrop {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      opacity: 0;
+      background: rgba(3, 5, 8, .66);
+      backdrop-filter: blur(0);
+      cursor: default;
+      transition: opacity 220ms ease, backdrop-filter 220ms ease;
+    }
+
+    .dialog-shell {
+      position: relative;
+      width: min(700px, 100%);
+      max-height: min(78vh, 760px);
+      max-height: min(78svh, 760px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      border-radius: 24px;
+      opacity: 0;
+      background: rgba(17, 22, 31, .97);
+      box-shadow: var(--shadow-dialog);
+      transform: translate3d(0, 14px, 0) scale(.985);
+      transition: opacity 220ms ease, transform 260ms var(--ease-out);
+    }
+
+    .dialog-layer.is-open .dialog-backdrop {
+      opacity: 1;
+      backdrop-filter: blur(12px);
+    }
+
+    .dialog-layer.is-open .dialog-shell {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .dialog-handle {
+      display: none;
+    }
+
+    .dialog-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 24px 19px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(17, 22, 31, .92);
+    }
+
+    .dialog-title h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: -.035em;
+    }
+
+    .dialog-title p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .close-button {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: #cbd4e2;
+      background: rgba(255, 255, 255, .05);
+      cursor: pointer;
+      transition: color 160ms ease, background 160ms ease, transform 160ms var(--ease-out);
+    }
+
+    .close-button:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .close-button:active {
+      transform: scale(.94);
+    }
+
+    .close-button svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-width: 1.8;
+    }
+
+    .dialog-content {
+      min-height: 180px;
+      padding: 8px 24px 28px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+
+    .dialog-content::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .dialog-content::-webkit-scrollbar-thumb {
+      border: 3px solid transparent;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .18);
+      background-clip: padding-box;
+    }
+
+    .empty-state {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 34px 20px;
+      text-align: center;
+    }
+
+    .empty-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      color: #91b2f5;
+      background: rgba(126, 165, 243, .09);
+    }
+
+    .empty-mark svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.5;
+    }
+
+    .empty-state strong {
+      font-size: 16px;
+    }
+
+    .empty-state > span:last-child {
+      max-width: 330px;
+      margin-top: 8px;
+      color: var(--quiet);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      padding-top: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .timeline-rail {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .timeline-rail::after {
+      position: absolute;
+      top: 26px;
+      bottom: -1px;
+      width: 1px;
+      background: rgba(255, 255, 255, .1);
+      content: "";
+    }
+
+    .timeline-item:last-child .timeline-rail::after {
+      display: none;
+    }
+
+    .timeline-rail span {
+      position: relative;
+      z-index: 1;
+      width: 9px;
+      height: 9px;
+      margin-top: 18px;
+      border: 2px solid var(--surface-solid);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(155, 188, 255, .14);
+    }
+
+    .timeline-content {
+      padding: 14px 0 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, .075);
+    }
+
+    .timeline-item:last-child .timeline-content {
+      border-bottom: 0;
+    }
+
+    .timeline-heading,
+    .package-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .timeline-heading h3,
+    .package-heading h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.3;
+      letter-spacing: -.015em;
+    }
+
+    .package-id {
+      margin: 4px 0 0;
+      overflow-wrap: anywhere;
+      color: var(--quiet);
+      font: 500 11px/1.4 ui-monospace, "SFMono-Regular", Menlo, monospace;
+    }
+
+    .timeline-heading time,
+    .latest-version {
+      flex: 0 0 auto;
+      color: var(--quiet);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .release-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      margin-top: 12px;
+      color: #8f9bac;
+      font-size: 12px;
+    }
+
+    .version-label {
+      color: #b6caff;
+      font-weight: 700;
+    }
+
+    .release-note,
+    .package-description {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .package-list {
+      padding-top: 6px;
+    }
+
+    .package-row {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .075);
+    }
+
+    .package-row:last-child {
+      border-bottom: 0;
+    }
+
+    .download-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .download-button {
+      min-height: 39px;
+      padding: 11px 13px;
+      border: 1px solid rgba(155, 188, 255, .22);
+      color: #dfe9ff;
+      background: rgba(126, 165, 243, .12);
+    }
+
+    .download-button:hover {
+      border-color: rgba(155, 188, 255, .38);
+      background: rgba(126, 165, 243, .2);
+    }
+
+    .version-history {
+      margin-top: 17px;
+      border-top: 1px solid rgba(255, 255, 255, .07);
+    }
+
+    .version-history summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 0 2px;
+      color: #9ba7b8;
+      font-size: 12px;
+      font-weight: 650;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .version-history summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .version-history summary:focus-visible {
+      outline: 0;
+      color: #dce7ff;
+      text-decoration: underline 2px var(--accent);
+      text-underline-offset: 4px;
+    }
+
+    .version-history summary::after {
+      width: 7px;
+      height: 7px;
+      margin-left: auto;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      content: "";
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 180ms var(--ease-out);
+    }
+
+    .version-history[open] summary::after {
+      transform: rotate(225deg) translate(-1px, -1px);
+    }
+
+    .version-history summary span {
+      min-width: 20px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #8792a3;
+      background: rgba(255, 255, 255, .06);
+      text-align: center;
+    }
+
+    .history-list {
+      padding-top: 8px;
+    }
+
+    .history-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+    }
+
+    .history-row > div:first-child {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .history-row strong {
+      font-size: 12px;
+    }
+
+    .history-row span {
+      color: var(--quiet);
+      font-size: 11px;
+    }
+
+    .history-row .download-button {
+      min-height: 34px;
+      padding: 9px 11px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        align-items: start;
+        padding: 18px;
+        padding-top: max(18px, env(safe-area-inset-top));
+        padding-bottom: max(18px, env(safe-area-inset-bottom));
+      }
+
+      main {
+        margin: auto 0;
+        padding: 28px 22px;
+        border-radius: 23px;
+      }
+
+      .source {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .copy-button {
+        width: 100%;
+      }
+
+      .targets {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .action-button {
+        width: 100%;
+      }
+
+      .action-button:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .dialog-layer {
+        place-items: end center;
+        padding: 0;
+      }
+
+      .dialog-shell {
+        width: 100%;
+        max-height: min(88vh, 760px);
+        max-height: min(88svh, 760px);
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-radius: 25px 25px 0 0;
+        transform: translate3d(0, 28px, 0);
+      }
+
+      .dialog-handle {
+        width: 38px;
+        height: 4px;
+        display: block;
+        flex: 0 0 auto;
+        margin: 9px auto 1px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .2);
+      }
+
+      .dialog-header {
+        padding: 17px 18px 16px;
+      }
+
+      .dialog-title h2 {
+        font-size: 22px;
+      }
+
+      .dialog-content {
+        padding: 5px 18px max(24px, env(safe-area-inset-bottom));
+      }
+
+      .timeline-heading,
+      .package-heading {
+        gap: 10px;
+      }
+
+      .download-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .download-button {
+        width: 100%;
+      }
+
+      .history-row .download-button {
+        width: auto;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .action-button:last-child {
+        grid-column: auto;
+      }
+
+      .timeline-heading {
+        flex-direction: column;
+        gap: 7px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="page-content">
+    <p class="eyebrow">iOS APT Repository</p>
+    <h1>Hmmzzz Repo</h1>
+    <p class="intro">面向 modern jailbreak 环境的公开软件源。将下面的地址添加到 Sileo 或 Zebra，然后刷新软件源。</p>
+
+    <div class="source">
+      <code id="source-url">https://hmmzzz.github.io/repo/</code>
+      <button class="copy-button" id="copy-source" type="button">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2"/><path d="M13.5 6.5v-1a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></svg>
+        <span id="copy-label" aria-live="polite">复制地址</span>
+      </button>
+    </div>
+
+    <section class="targets" aria-label="支持环境">
+      <div class="target">
+        <strong>Rootless</strong>
+        <span>iphoneos-arm64</span>
+      </div>
+      <div class="target">
+        <strong>RootHide</strong>
+        <span>iphoneos-arm64e</span>
+      </div>
+    </section>
+
+    <nav class="actions" aria-label="软件源操作">
+      <button class="action-button primary" type="button" data-dialog-target="updates-dialog">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6.5V10l2.5 1.5"/></svg>
+        <span>更新记录</span>
+      </button>
+      <button class="action-button" type="button" data-dialog-target="packages-dialog">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 6.5 10 3l6.5 3.5V14L10 17l-6.5-3z"/><path d="m3.5 6.5 6.5 3.4 6.5-3.4M10 9.9V17"/></svg>
+        <span>插件下载</span>
+      </button>
+      <a class="action-button" href="https://github.com/Hmmzzz/repo">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5h8v8M14.5 5.5 6 14"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+
+    <p class="source-note">软件包会根据 Rootless 与 RootHide 架构分别提供。</p>
+  </main>
+
+  <div class="dialog-layer" id="updates-dialog" hidden>
+    <div class="dialog-backdrop" data-dialog-close aria-hidden="true"></div>
+    <section class="dialog-shell" role="dialog" aria-modal="true" aria-labelledby="updates-title" tabindex="-1">
+      <span class="dialog-handle" aria-hidden="true"></span>
+      <header class="dialog-header">
+        <div class="dialog-title">
+          <h2 id="updates-title">更新记录</h2>
+          <p>源中现有软件包的版本发布历史。</p>
+        </div>
+        <button class="close-button" type="button" data-dialog-close aria-label="关闭更新记录">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9m0-9-9 9"/></svg>
+        </button>
+      </header>
+      <div class="dialog-content">
+        <!-- GENERATED:UPDATE_ITEMS -->
+      </div>
+    </section>
+  </div>
+
+  <div class="dialog-layer" id="packages-dialog" hidden>
+    <div class="dialog-backdrop" data-dialog-close aria-hidden="true"></div>
+    <section class="dialog-shell" role="dialog" aria-modal="true" aria-labelledby="packages-title" tabindex="-1">
+      <span class="dialog-handle" aria-hidden="true"></span>
+      <header class="dialog-header">
+        <div class="dialog-title">
+          <h2 id="packages-title">插件下载</h2>
+          <p>请选择与越狱环境匹配的软件包。</p>
+        </div>
+        <button class="close-button" type="button" data-dialog-close aria-label="关闭插件下载">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9m0-9-9 9"/></svg>
+        </button>
+      </header>
+      <div class="dialog-content">
+        <!-- GENERATED:PACKAGE_ITEMS -->
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const page = document.querySelector('#page-content');
+      const copyButton = document.querySelector('#copy-source');
+      const copyLabel = document.querySelector('#copy-label');
+      const source = document.querySelector('#source-url').textContent;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const focusableSelector = [
+        'a[href]',
+        'button:not([disabled])',
+        'details > summary',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+      let activeDialog = null;
+      let activeTrigger = null;
+      let closeTimer = null;
+      let copyTimer = null;
+
+      const animationDuration = () => reduceMotion.matches ? 0 : 280;
+
+      const visibleFocusables = (layer) => Array.from(layer.querySelectorAll(focusableSelector))
+        .filter((element) => !element.closest('[hidden]') && element.getClientRects().length > 0);
+
+      const openDialog = (id, trigger) => {
+        const layer = document.getElementById(id);
+        if (!layer || layer === activeDialog) return;
+        if (activeDialog) finishClose(activeDialog, false);
+        window.clearTimeout(closeTimer);
+        activeDialog = layer;
+        activeTrigger = trigger;
+        layer.hidden = false;
+        const closeButton = layer.querySelector('.close-button');
+        closeButton?.focus({ preventScroll: true });
+        page.inert = true;
+        page.setAttribute('aria-hidden', 'true');
+        document.body.classList.add('dialog-open');
+        window.requestAnimationFrame(() => {
+          layer.classList.add('is-open');
+        });
+      };
+
+      const finishClose = (layer, restoreFocus = true) => {
+        layer.classList.remove('is-open');
+        layer.hidden = true;
+        if (activeDialog === layer) activeDialog = null;
+        page.inert = false;
+        page.removeAttribute('aria-hidden');
+        document.body.classList.remove('dialog-open');
+        if (restoreFocus && activeTrigger) activeTrigger.focus({ preventScroll: true });
+        if (restoreFocus) activeTrigger = null;
+      };
+
+      const closeDialog = (layer) => {
+        if (!layer || layer.hidden) return;
+        layer.classList.remove('is-open');
+        window.clearTimeout(closeTimer);
+        closeTimer = window.setTimeout(() => finishClose(layer), animationDuration());
+      };
+
+      document.addEventListener('click', (event) => {
+        const opener = event.target.closest('[data-dialog-target]');
+        if (opener) {
+          openDialog(opener.dataset.dialogTarget, opener);
+          return;
+        }
+        const closer = event.target.closest('[data-dialog-close]');
+        if (closer) closeDialog(closer.closest('.dialog-layer'));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (!activeDialog) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeDialog(activeDialog);
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusables = visibleFocusables(activeDialog);
+        if (!focusables.length) {
+          event.preventDefault();
+          activeDialog.querySelector('.dialog-shell')?.focus();
+          return;
+        }
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+
+      const fallbackCopy = () => {
+        const textarea = document.createElement('textarea');
+        textarea.value = source;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand('copy');
+        textarea.remove();
+        if (!copied) throw new Error('Copy command failed');
+      };
+
+      copyButton.addEventListener('click', async () => {
+        let copied = true;
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(source);
+          } else {
+            fallbackCopy();
+          }
+        } catch {
+          copied = false;
+        }
+        window.clearTimeout(copyTimer);
+        copyButton.classList.toggle('is-copied', copied);
+        copyLabel.textContent = copied ? '已复制' : '请手动复制';
+        copyTimer = window.setTimeout(() => {
+          copyButton.classList.remove('is-copied');
+          copyLabel.textContent = '复制地址';
+        }, 1800);
+      });
+    })();
+  </script>
+</body>
+</html>
