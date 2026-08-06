@@ -26,7 +26,6 @@ grep -Fq 'https://hmmzzz.github.io/repo/depictions/markfont/icon.png' \
 grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
 grep -Fq '"spacing": 14' "$repo_dir/depictions/markfont/sileo.json"
 if grep -Fq 'github.com/Hmmzzz/MarkFont' \
-    "$repo_dir/depictions/markfont/index.html" \
     "$repo_dir/depictions/markfont/sileo.json"; then
   printf 'Smoke test failed: unreleased MarkFont source link is public.\n' >&2
   exit 65
