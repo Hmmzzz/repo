@@ -75,6 +75,24 @@ first_view = details["views"][0]
 if first_view.get("class") != "DepictionSubheaderView" or first_view.get("title") != "全局字体管理":
     raise SystemExit("Smoke test failed: Sileo details must start with the feature summary.")
 
+warning_index = next(
+    (
+        index
+        for index, view in enumerate(details["views"])
+        if view.get("class") == "DepictionSubheaderView"
+        and view.get("title") == "安装前请注意"
+    ),
+    None,
+)
+if warning_index is None or warning_index + 1 >= len(details["views"]):
+    raise SystemExit("Smoke test failed: Sileo install warning is missing.")
+warning_markdown = details["views"][warning_index + 1].get("markdown", "")
+for number in range(1, 4):
+    if f"\n\n**{number}.** " not in warning_markdown:
+        raise SystemExit("Smoke test failed: Sileo install notes must use separate Markdown paragraphs.")
+if "<br" in warning_markdown or "</br>" in warning_markdown:
+    raise SystemExit("Smoke test failed: Sileo install notes must not contain HTML breaks.")
+
 duplicate_header_classes = {"DepictionImageView", "DepictionHeaderView"}
 if any(view.get("class") in duplicate_header_classes for view in details["views"]):
     raise SystemExit("Smoke test failed: Sileo details duplicate the native package header.")
