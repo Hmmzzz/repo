@@ -8,40 +8,6 @@
       "tabname": "详情",
       "views": [
         {
-          "class": "DepictionSpacerView",
-          "spacing": 14
-        },
-        {
-          "class": "DepictionImageView",
-          "URL": "https://hmmzzz.github.io/repo/depictions/markfont/icon.png",
-          "width": 86,
-          "height": 86,
-          "cornerRadius": 20,
-          "alignment": 1,
-          "xPadding": 12
-        },
-        {
-          "class": "DepictionHeaderView",
-          "title": "MarkFont",
-          "alignment": 1,
-          "useBoldText": true,
-          "useBottomMargin": false
-        },
-        {
-          "class": "DepictionLabelView",
-          "text": "先预览，再把喜欢的字体应用到整个系统。",
-          "alignment": 1,
-          "fontSize": 14,
-          "textColor": "#7A7F7B"
-        },
-        {
-          "class": "DepictionSpacerView",
-          "spacing": 8
-        },
-        {
-          "class": "DepictionSeparatorView"
-        },
-        {
           "class": "DepictionSubheaderView",
           "title": "全局字体管理",
           "useBoldText": true
