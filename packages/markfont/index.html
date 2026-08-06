@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="MarkFont 是面向 iOS 16+ RootHide 与 conventional rootless 环境的全局字体管理器。">
+  <title>MarkFont</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+      --background: #f3f2ef;
+      --surface: rgba(255, 255, 255, .82);
+      --surface-strong: #fff;
+      --text: #171a18;
+      --secondary: #666b67;
+      --quiet: #8a8f8b;
+      --accent: #df593a;
+      --accent-soft: #fae6df;
+      --success: #238a59;
+      --border: rgba(23, 26, 24, .09);
+      --shadow: 0 18px 50px rgba(34, 28, 23, .09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: max(22px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+      color: var(--text);
+      background:
+        radial-gradient(circle at 90% 4%, rgba(223, 89, 58, .13), transparent 34%),
+        var(--background);
+    }
+
+    main {
+      width: min(680px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 19px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+    .tagline {
+      margin-bottom: 10px;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chip {
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 11%, transparent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    section {
+      margin-top: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: 18px;
+      letter-spacing: -.02em;
+    }
+
+    .body-copy,
+    li {
+      color: var(--secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .body-copy:last-child { margin-bottom: 0; }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li + li { margin-top: 7px; }
+
+    .compatibility {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .target {
+      padding: 14px;
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+    }
+
+    .target strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .target span {
+      color: var(--quiet);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .warning {
+      border-color: color-mix(in srgb, var(--accent) 20%, var(--border));
+      background: color-mix(in srgb, var(--accent-soft) 52%, var(--surface));
+    }
+
+    .warning h2 { color: var(--accent); }
+
+    .release {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .version {
+      flex: 0 0 auto;
+      padding: 6px 9px;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .release ul { flex: 1; }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      background: var(--surface-strong);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .link::after {
+      color: var(--quiet);
+      content: "›";
+      font-size: 22px;
+      font-weight: 400;
+    }
+
+    footer {
+      padding: 20px 12px 0;
+      color: var(--quiet);
+      font-size: 11px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      .hero { grid-template-columns: 68px minmax(0, 1fr); padding: 18px; }
+      .icon { width: 68px; height: 68px; border-radius: 16px; }
+      h1 { font-size: 26px; }
+      .compatibility, .links { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #0d100e;
+        --surface: rgba(25, 29, 26, .84);
+        --surface-strong: #202521;
+        --text: #f2f4f1;
+        --secondary: #b5bbb6;
+        --quiet: #858d87;
+        --accent: #f06b4b;
+        --accent-soft: #37201b;
+        --success: #54c88d;
+        --border: rgba(255, 255, 255, .085);
+        --shadow: 0 22px 54px rgba(0, 0, 0, .28);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <img class="icon" src="./icon.png" alt="MarkFont 图标">
+      <div>
+        <h1>MarkFont</h1>
+        <p class="tagline">先预览，再把喜欢的字体应用到整个系统。</p>
+        <div class="chips" aria-label="兼容性">
+          <span class="chip">iOS 16+</span>
+          <span class="chip">Rootless</span>
+          <span class="chip">RootHide</span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>全局字体管理</h2>
+      <p class="body-copy">在 App 内导入字体、创建多套方案并快速切换。MarkFont 会将字体安全应用到整个系统，也可以随时恢复系统默认字体。</p>
+      <ul>
+        <li>导入 ZIP、TTF、TTC 和 OTF 字体</li>
+        <li>管理多套字体方案并预览显示效果</li>
+        <li>使用只读字体镜像，不直接修改系统字体文件</li>
+        <li>重新越狱后自动恢复已启用的字体映射</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>选择正确的软件包</h2>
+      <div class="compatibility">
+        <div class="target">
+          <strong>Conventional rootless</strong>
+          <span>例如 Dopamine，安装 iphoneos-arm64 版本。</span>
+        </div>
+        <div class="target">
+          <strong>RootHide</strong>
+          <span>例如 Relaxin，安装 iphoneos-arm64e 版本。</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="warning">
+      <h2>安装前请注意</h2>
+      <p class="body-copy">两种环境的软件包不能混装。字体文件不完整或与系统不兼容可能导致文字空白或界面不可用；安装前请确保你能够进入当前越狱的安全模式并移除软件包。</p>
+    </section>
+
+    <section>
+      <h2>更新内容</h2>
+      <div class="release">
+        <span class="version">0.3.0</span>
+        <ul>
+          <li>新增 iOS 16+ conventional rootless 与 RootHide 双方案支持</li>
+          <li>完善重新越狱后的字体镜像恢复机制</li>
+          <li>优化应用字体后的系统界面重新载入提示</li>
+          <li>补充软件包图标、冲突关系和 Sileo 详情页</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="links" aria-label="相关链接">
+      <a class="link" href="../../">软件源主页</a>
+      <a class="link" href="https://github.com/Hmmzzz/MarkFont">项目源代码</a>
+    </section>
+
+    <footer>MarkFont 不提供或分发第三方字体。请仅使用你有权安装的字体文件。</footer>
+  </main>
+</body>
+</html>

@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/publish.yml"
       - "pool/**"
+      - "packages/**"
       - "scripts/**"
       - "site/**"
   workflow_dispatch:

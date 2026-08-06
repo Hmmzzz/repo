@@ -1,0 +1,118 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.4",
+  "tintColor": "#DF593A",
+  "tabs": [
+    {
+      "class": "DepictionStackView",
+      "tabname": "详情",
+      "views": [
+        {
+          "class": "DepictionImageView",
+          "URL": "https://hmmzzz.github.io/repo/depictions/markfont/icon.png",
+          "width": 86,
+          "height": 86,
+          "cornerRadius": 20,
+          "alignment": 1,
+          "xPadding": 12
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "MarkFont",
+          "alignment": 1,
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionLabelView",
+          "text": "先预览，再把喜欢的字体应用到整个系统。",
+          "alignment": 1,
+          "fontSize": 14,
+          "textColor": "#7A7F7B"
+        },
+        {
+          "class": "DepictionSpacerView",
+          "spacing": 8
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "全局字体管理",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "在 App 内导入字体、创建多套方案并快速切换。MarkFont 使用只读字体镜像，不直接修改系统字体文件，并支持恢复系统默认字体。\n\n- 支持 ZIP、TTF、TTC 和 OTF\n- 支持多字体方案管理与预览\n- 支持重新越狱后恢复已启用的字体映射",
+          "tintColor": "#DF593A"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "版本",
+          "text": "0.3.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "系统",
+          "text": "iOS 16.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "环境",
+          "text": "Rootless / RootHide"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "选择正确的软件包",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "**Conventional rootless**（例如 Dopamine）请安装 `iphoneos-arm64` 版本。\n\n**RootHide**（例如 Relaxin）请安装 `iphoneos-arm64e` 版本。两种软件包不能混装。",
+          "tintColor": "#DF593A"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "安装前请注意",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "字体文件不完整或与系统不兼容可能导致文字空白或界面不可用。安装前请确保你能够进入当前越狱的安全模式并移除软件包。MarkFont 不提供或分发第三方字体，请仅使用你有权安装的字体文件。",
+          "tintColor": "#DF593A"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "软件源主页",
+          "action": "https://hmmzzz.github.io/repo/",
+          "openExternal": 1,
+          "tintColor": "#DF593A"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "项目源代码",
+          "action": "https://github.com/Hmmzzz/MarkFont",
+          "openExternal": 1,
+          "tintColor": "#DF593A"
+        }
+      ]
+    },
+    {
+      "class": "DepictionStackView",
+      "tabname": "更新日志",
+      "views": [
+        {
+          "class": "DepictionHeaderView",
+          "title": "MarkFont 0.3.0",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "- 新增 iOS 16+ conventional rootless 与 RootHide 双方案支持\n- 完善重新越狱后的字体镜像恢复机制\n- 优化应用字体后的系统界面重新载入提示\n- 补充软件包图标、冲突关系和 Sileo 详情页",
+          "tintColor": "#DF593A"
+        }
+      ]
+    }
+  ]
+}

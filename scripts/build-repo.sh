@@ -27,6 +27,10 @@ fi
 "$script_dir/validate-debs.sh" "$repo_root/pool"
 
 cp -R "$repo_root/site/." "$output_dir/"
+if [[ -d "$repo_root/packages" ]]; then
+  mkdir -p "$output_dir/depictions"
+  cp -R "$repo_root/packages/." "$output_dir/depictions/"
+fi
 mkdir -p "$output_dir/pool"
 cp -R "$repo_root/pool/." "$output_dir/pool/"
 

@@ -10,12 +10,20 @@ fi
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_dir=$1
 
-for expected_file in Packages Packages.gz Packages.bz2 Packages.xz Packages.zst Release index.html .nojekyll; do
+for expected_file in \
+  Packages Packages.gz Packages.bz2 Packages.xz Packages.zst Release index.html .nojekyll \
+  depictions/markfont/icon.png depictions/markfont/index.html \
+  depictions/markfont/sileo.json; do
   [[ -f "$repo_dir/$expected_file" ]] || {
     printf 'Smoke test failed: missing %s\n' "$expected_file" >&2
     exit 65
   }
 done
+
+python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
+grep -Fq 'https://hmmzzz.github.io/repo/depictions/markfont/icon.png' \
+  "$repo_dir/depictions/markfont/sileo.json"
+grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
 
 cmp "$repo_dir/Packages" <(gzip -dc "$repo_dir/Packages.gz")
 cmp "$repo_dir/Packages" <(bzip2 -dc "$repo_dir/Packages.bz2")
