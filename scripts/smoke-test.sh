@@ -52,12 +52,23 @@ PY
 
 python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
 grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
-python3 - "$repo_dir/depictions/markfont/sileo.json" <<'PY'
+python3 - \
+  "$repo_dir/depictions/markfont/sileo.json" \
+  "$repo_dir/depictions/markfont/index.html" <<'PY'
 import json
 import sys
+from pathlib import Path
 
-with open(sys.argv[1], encoding="utf-8") as depiction_file:
-    depiction = json.load(depiction_file)
+depiction_text = Path(sys.argv[1]).read_text(encoding="utf-8")
+web_depiction = Path(sys.argv[2]).read_text(encoding="utf-8")
+depiction = json.loads(depiction_text)
+
+mount_warning = "如果安装过其他字体挂载插件并已挂载字体，请先取消挂载，再卸载对应插件。"
+for name, content in (("Sileo", depiction_text), ("web", web_depiction)):
+    if mount_warning not in content:
+        raise SystemExit(f"Smoke test failed: {name} depiction is missing the mount warning.")
+    if "选择正确的软件包" in content:
+        raise SystemExit(f"Smoke test failed: {name} depiction still includes package selection help.")
 
 details = depiction["tabs"][0]
 first_view = details["views"][0]

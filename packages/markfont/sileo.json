@@ -34,22 +34,12 @@
         },
         {
           "class": "DepictionSubheaderView",
-          "title": "选择正确的软件包",
-          "useBoldText": true
-        },
-        {
-          "class": "DepictionMarkdownView",
-          "markdown": "**Conventional rootless**（例如 Dopamine）请安装 `iphoneos-arm64` 版本。\n\n**RootHide**（例如 Relaxin）请安装 `iphoneos-arm64e` 版本。两种软件包不能混装。",
-          "tintColor": "#DF593A"
-        },
-        {
-          "class": "DepictionSubheaderView",
           "title": "安装前请注意",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "字体文件不完整或与系统不兼容可能导致文字空白或界面不可用。安装前请确保你能够进入当前越狱的安全模式并移除软件包。MarkFont 不提供或分发第三方字体，请仅使用你有权安装的字体文件。",
+          "markdown": "如果安装过其他字体挂载插件并已挂载字体，请先取消挂载，再卸载对应插件。\n\n字体文件不完整或与系统不兼容可能导致文字空白或界面不可用。安装前请确保你能够进入当前越狱的安全模式并移除软件包。MarkFont 不提供或分发第三方字体，请仅使用你有权安装的字体文件。",
           "tintColor": "#DF593A"
         },
         {
