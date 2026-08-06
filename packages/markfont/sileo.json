@@ -8,6 +8,10 @@
       "tabname": "详情",
       "views": [
         {
+          "class": "DepictionSpacerView",
+          "spacing": 14
+        },
+        {
           "class": "DepictionImageView",
           "URL": "https://hmmzzz.github.io/repo/depictions/markfont/icon.png",
           "width": 86,
@@ -86,13 +90,6 @@
           "class": "DepictionTableButtonView",
           "title": "软件源主页",
           "action": "https://hmmzzz.github.io/repo/",
-          "openExternal": 1,
-          "tintColor": "#DF593A"
-        },
-        {
-          "class": "DepictionTableButtonView",
-          "title": "项目源代码",
-          "action": "https://github.com/Hmmzzz/MarkFont",
           "openExternal": 1,
           "tintColor": "#DF593A"
         }

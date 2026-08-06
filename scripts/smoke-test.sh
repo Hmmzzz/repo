@@ -24,6 +24,13 @@ python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
 grep -Fq 'https://hmmzzz.github.io/repo/depictions/markfont/icon.png' \
   "$repo_dir/depictions/markfont/sileo.json"
 grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
+grep -Fq '"spacing": 14' "$repo_dir/depictions/markfont/sileo.json"
+if grep -Fq 'github.com/Hmmzzz/MarkFont' \
+    "$repo_dir/depictions/markfont/index.html" \
+    "$repo_dir/depictions/markfont/sileo.json"; then
+  printf 'Smoke test failed: unreleased MarkFont source link is public.\n' >&2
+  exit 65
+fi
 
 cmp "$repo_dir/Packages" <(gzip -dc "$repo_dir/Packages.gz")
 cmp "$repo_dir/Packages" <(bzip2 -dc "$repo_dir/Packages.bz2")
