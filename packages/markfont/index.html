@@ -174,7 +174,7 @@
 
     .links {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 10px;
     }
 
@@ -212,7 +212,7 @@
       .hero { grid-template-columns: 68px minmax(0, 1fr); padding: 18px; }
       .icon { width: 68px; height: 68px; border-radius: 16px; }
       h1 { font-size: 26px; }
-      .compatibility, .links { grid-template-columns: 1fr; }
+      .compatibility { grid-template-columns: 1fr; }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -292,7 +292,6 @@
 
     <section class="links" aria-label="相关链接">
       <a class="link" href="../../">软件源主页</a>
-      <a class="link" href="https://github.com/Hmmzzz/MarkFont">项目源代码</a>
     </section>
 
     <footer>MarkFont 不提供或分发第三方字体。请仅使用你有权安装的字体文件。</footer>

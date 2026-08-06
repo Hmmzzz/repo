@@ -69,7 +69,8 @@ if any(view.get("class") in duplicate_header_classes for view in details["views"
     raise SystemExit("Smoke test failed: Sileo details duplicate the native package header.")
 PY
 if grep -Fq 'github.com/Hmmzzz/MarkFont' \
-    "$repo_dir/depictions/markfont/sileo.json"; then
+    "$repo_dir/depictions/markfont/sileo.json" \
+    "$repo_dir/depictions/markfont/index.html"; then
   printf 'Smoke test failed: unreleased MarkFont source link is public.\n' >&2
   exit 65
 fi
