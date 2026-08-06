@@ -12,6 +12,7 @@ repo_dir=$1
 
 for expected_file in \
   Packages Packages.gz Packages.bz2 Packages.xz Packages.zst Release index.html .nojekyll \
+  CydiaIcon.png CydiaIcon@2x.png CydiaIcon@3x.png \
   depictions/markfont/icon.png depictions/markfont/index.html \
   depictions/markfont/sileo.json; do
   [[ -f "$repo_dir/$expected_file" ]] || {
@@ -19,6 +20,35 @@ for expected_file in \
     exit 65
   }
 done
+
+python3 - "$repo_dir" <<'PY'
+import struct
+import sys
+from pathlib import Path
+
+repo_dir = Path(sys.argv[1])
+expected_sizes = {
+    "CydiaIcon.png": (64, 64),
+    "CydiaIcon@2x.png": (128, 128),
+    "CydiaIcon@3x.png": (192, 192),
+}
+
+for filename, expected_size in expected_sizes.items():
+    data = (repo_dir / filename).read_bytes()
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise SystemExit(f"Smoke test failed: {filename} is not a valid PNG.")
+    actual_size = struct.unpack(">II", data[16:24])
+    if actual_size != expected_size:
+        raise SystemExit(
+            f"Smoke test failed: {filename} must be {expected_size[0]}x{expected_size[1]}, "
+            f"found {actual_size[0]}x{actual_size[1]}."
+        )
+    color_type = data[25]
+    if color_type not in {4, 6} and b"tRNS" not in data:
+        raise SystemExit(
+            f"Smoke test failed: {filename} must retain transparency for its rounded corners."
+        )
+PY
 
 python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
 grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
