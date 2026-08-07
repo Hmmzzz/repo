@@ -20,7 +20,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.3.0"
+          "text": "0.3.1"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,12 +57,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkFont 0.3.0",
+          "title": "MarkFont 0.3.1",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 新增 iOS 16+ conventional rootless 与 RootHide 双方案支持\n- 完善重新越狱后的字体镜像恢复机制\n- 优化应用字体后的系统界面重新载入提示\n- 补充软件包图标、冲突关系和 Sileo 详情页",
+          "markdown": "- 修复 conventional rootless（Dopamine）下应用字体方案失败的问题\n- 修复沙盒容器中导入的方案数据在卸载后残留的问题\n- RootHide 环境保持既有行为不变",
           "tintColor": "#DF593A"
         }
       ]

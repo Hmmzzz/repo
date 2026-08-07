@@ -51,7 +51,7 @@ for filename, expected_size in expected_sizes.items():
 PY
 
 python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
-grep -Fq 'MarkFont 0.3.0' "$repo_dir/depictions/markfont/sileo.json"
+grep -Fq 'MarkFont 0.3.1' "$repo_dir/depictions/markfont/sileo.json"
 python3 - \
   "$repo_dir/depictions/markfont/sileo.json" \
   "$repo_dir/depictions/markfont/index.html" <<'PY'
