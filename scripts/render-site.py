@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 import subprocess
 import sys
@@ -236,7 +237,9 @@ def render_empty(kind: str, title: str, body: str) -> str:
     )
 
 
-def render_updates(records: list[PackageRecord]) -> str:
+def render_updates(
+    records: list[PackageRecord], changelogs: dict[str, dict[str, str]]
+) -> str:
     if not records:
         return render_empty(
             "updates",
@@ -271,7 +274,12 @@ def render_updates(records: list[PackageRecord]) -> str:
     items: list[str] = []
     for representative, grouped_records, published_at in entries:
         architectures = " · ".join(item.architecture_name for item in grouped_records)
-        note = representative.changelog or representative.description or "发布此版本。"
+        note = (
+            changelogs.get(representative.package, {}).get(representative.version)
+            or representative.changelog
+            or representative.description
+            or "发布此版本。"
+        )
         items.append(
             '<article class="timeline-item" '
             f'data-package-id="{escaped(representative.package)}">'
@@ -385,10 +393,16 @@ def main() -> None:
     if template.count(UPDATE_MARKER) != 1 or template.count(PACKAGE_MARKER) != 1:
         fail("index.html does not contain the expected generation markers")
 
+    changelogs_path = repo_root / "changelogs.json"
+    changelogs = (
+        json.loads(changelogs_path.read_text(encoding="utf-8"))
+        if changelogs_path.is_file()
+        else {}
+    )
     records = records_from_stanzas(
         parse_stanzas(packages_path.read_text(encoding="utf-8")), repo_root
     )
-    rendered = template.replace(UPDATE_MARKER, render_updates(records))
+    rendered = template.replace(UPDATE_MARKER, render_updates(records, changelogs))
     rendered = rendered.replace(PACKAGE_MARKER, render_packages(records))
     index_path.write_text(rendered, encoding="utf-8")
     print(f"Rendered repository homepage with {len(records)} package artifact(s).")
