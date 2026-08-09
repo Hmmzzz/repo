@@ -51,7 +51,7 @@ for filename, expected_size in expected_sizes.items():
 PY
 
 python3 -m json.tool "$repo_dir/depictions/markfont/sileo.json" >/dev/null
-grep -Fq 'MarkFont 0.3.1' "$repo_dir/depictions/markfont/sileo.json"
+grep -Fq 'MarkFont 0.3.3' "$repo_dir/depictions/markfont/sileo.json"
 python3 - \
   "$repo_dir/depictions/markfont/sileo.json" \
   "$repo_dir/depictions/markfont/index.html" <<'PY'
@@ -69,6 +69,11 @@ for name, content in (("Sileo", depiction_text), ("web", web_depiction)):
         raise SystemExit(f"Smoke test failed: {name} depiction is missing the mount warning.")
     if "选择正确的软件包" in content:
         raise SystemExit(f"Smoke test failed: {name} depiction still includes package selection help.")
+    for required_release_note in ("PingFangUI.ttc", "重新导入原字体包"):
+        if required_release_note not in content:
+            raise SystemExit(
+                f"Smoke test failed: {name} depiction is missing {required_release_note}."
+            )
 
 details = depiction["tabs"][0]
 first_view = details["views"][0]
