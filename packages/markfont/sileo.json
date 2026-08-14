@@ -20,7 +20,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.3.3"
+          "text": "0.3.5"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,12 +57,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkFont 0.3.3",
+          "title": "MarkFont 0.3.5",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 新增 iOS 18–26 中文字体支持，适配 FontServices/CorePrivate 中专用的 PingFangUI.ttc\n- iOS 16–17 继续使用 PingFang.ttc，并严格按当前系统同名文件匹配，不做跨名替换\n- 升级后需重新导入原字体包并创建新 Profile，旧方案不会自动补匹配\n- 优化字体包导入与 Respring 界面的排查提示",
+          "markdown": "- 修复为 MarkFont 开启“粗体文本”时打开字体文件选择器可能闪退的问题\n- 将导航栏外观限制在 MarkFont 自有界面，不再影响系统文件选择器\n- 移除先前的临时规避提示；iOS 18–26 专用 PingFangUI.ttc 提示仍按系统版本显示",
           "tintColor": "#DF593A"
         }
       ]
