@@ -242,11 +242,12 @@
     <section>
       <h2>更新内容</h2>
       <div class="release">
-        <span class="version">0.3.5</span>
+        <span class="version">0.3.6</span>
         <ul>
-          <li>修复为 MarkFont 开启“粗体文本”时打开字体文件选择器可能闪退的问题</li>
-          <li>将导航栏外观限制在 MarkFont 自有界面，不再影响系统文件选择器</li>
-          <li>移除先前的临时规避提示；iOS 18–26 专用 PingFangUI.ttc 提示仍按系统版本显示</li>
+          <li>新增混搭字体：中文、英文与锁屏时间字体可分别选用不同方案</li>
+          <li>锁屏时间字体按系统版本精确匹配（iOS 16 用 ADTTime.ttc，iOS 17 起优先 ADTNumeric.ttc）</li>
+          <li>其余字体统一由兜底方案或系统默认提供；混搭结果保存为普通方案，可预览、应用与删除</li>
+          <li>字体库操作区改为「选择字体包 / 创建混搭方案」两个全宽按钮，适配动态字体大小</li>
         </ul>
       </div>
     </section>
