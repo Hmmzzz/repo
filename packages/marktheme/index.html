@@ -219,14 +219,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.1.0</h2>
+      <h2>MarkTheme 0.1.1</h2>
       <div class="release">
-        <span class="version">0.1.0</span>
+        <span class="version">0.1.1</span>
         <ul>
-          <li>首个公开发布版本，支持 conventional rootless 与 RootHide</li>
-          <li>安全导入、完整资源校验、原子 Generation 发布与 revision 恢复</li>
-          <li>覆盖主屏幕与多个系统图标表面，并支持遮罩、阴影、角标和状态栏组件</li>
-          <li>Runtime 严格匹配系统 build 与目标进程，校验失败时安全回退</li>
+          <li>修复 iOS 17.1 / 17.1.1 导入主题后无法应用的问题</li>
+          <li>Runtime 按目标进程身份与运行时 ABI 探测启用，不再按系统 build 或 Mach-O UUID 白名单匹配</li>
+          <li>支持从 iCloud Drive 导入主题包与目录</li>
+          <li>加入反向包审计，防止 build / UUID 钉定回归；校验失败时保留系统原生外观</li>
         </ul>
       </div>
     </section>

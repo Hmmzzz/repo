@@ -164,8 +164,15 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
 for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
     if relative_screenshot not in web_text:
         raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
-if "MarkTheme 0.1.0" not in depiction_text or "MarkTheme 0.1.0" not in web_text:
+if "MarkTheme 0.1.1" not in depiction_text or "MarkTheme 0.1.1" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
+for name, content in (("Sileo", depiction_text), ("web", web_text)):
+    for phrase in ("iOS 17.1 / 17.1.1", "运行时 ABI", "不再按系统 build"):
+        if phrase not in content:
+            raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
+    for stale_phrase in ("系统 build 精确启用", "Runtime 严格匹配系统 build"):
+        if stale_phrase in content:
+            raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction retains {stale_phrase}.")
 
 def parse_stanzas(text):
     stanzas = []
@@ -186,13 +193,19 @@ marktheme = [
     for stanza in parse_stanzas(packages_path.read_text(encoding="utf-8"))
     if stanza.get("Package") == "com.hmmzzz.marktheme"
 ]
-if len(marktheme) != 2:
-    raise SystemExit("Smoke test failed: Packages must contain two MarkTheme variants.")
-if {stanza.get("Architecture") for stanza in marktheme} != {"iphoneos-arm64", "iphoneos-arm64e"}:
-    raise SystemExit("Smoke test failed: MarkTheme architectures are incomplete.")
+expected_variants = {
+    (version, architecture)
+    for version in ("0.1.0", "0.1.1")
+    for architecture in ("iphoneos-arm64", "iphoneos-arm64e")
+}
+actual_variants = {
+    (stanza.get("Version"), stanza.get("Architecture"))
+    for stanza in marktheme
+}
+if len(marktheme) != len(expected_variants) or actual_variants != expected_variants:
+    raise SystemExit("Smoke test failed: MarkTheme version/architecture variants are incomplete.")
 
 expected_fields = {
-    "Version": "0.1.0",
     "Homepage": "https://github.com/Hmmzzz/MarkTheme",
     "Icon": "https://hmmzzz.github.io/repo/depictions/marktheme/icon.png",
     "Depiction": "https://hmmzzz.github.io/repo/depictions/marktheme/",

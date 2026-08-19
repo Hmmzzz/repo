@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.0"
+          "text": "0.1.1"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.0",
+          "title": "MarkTheme 0.1.1",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 首个公开发布版本，提供 conventional rootless 与 RootHide 双 package scheme\n- 支持 SnowBoard / IconBundles 风格主题的安全导入、完整校验与 revision 管理\n- 支持主屏幕图标、文件夹、角标、阴影、Spotlight、设置、电话、分享页与状态栏资源\n- Runtime 按 bundle id、可执行文件名与系统 build 精确启用；身份、ABI 或资源校验失败时保留系统原生外观",
+          "markdown": "- 修复 iOS 17.1 / 17.1.1 导入主题后无法应用的问题\n- Runtime 按目标进程身份与运行时 ABI 探测启用，不再按系统 build 或 Mach-O UUID 白名单匹配\n- 支持从 iCloud Drive 导入主题包与目录\n- 加入反向包审计，防止 build / UUID 钉定回归；身份、ABI 或资源校验失败时保留系统原生外观",
           "tintColor": "#6254E8"
         }
       ]
