@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.1"
+          "text": "0.1.2"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.1",
+          "title": "MarkTheme 0.1.2",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 修复 iOS 17.1 / 17.1.1 导入主题后无法应用的问题\n- Runtime 按目标进程身份与运行时 ABI 探测启用，不再按系统 build 或 Mach-O UUID 白名单匹配\n- 支持从 iCloud Drive 导入主题包与目录\n- 加入反向包审计，防止 build / UUID 钉定回归；身份、ABI 或资源校验失败时保留系统原生外观",
+          "markdown": "- 设置新增「诊断」入口，一键复制兼容性报告\n- Runtime 逐项记录各 adapter 契约的 ABI 探测结果与最终状态，不支持的系统版本可凭用户上报直接定位\n- 静态图标预热按运行设备实际屏幕 scale 进行，未实测机型也能预热真实请求的几何尺寸",
           "tintColor": "#6254E8"
         }
       ]

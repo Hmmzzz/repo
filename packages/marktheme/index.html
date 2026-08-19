@@ -219,14 +219,13 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.1.1</h2>
+      <h2>MarkTheme 0.1.2</h2>
       <div class="release">
-        <span class="version">0.1.1</span>
+        <span class="version">0.1.2</span>
         <ul>
-          <li>修复 iOS 17.1 / 17.1.1 导入主题后无法应用的问题</li>
-          <li>Runtime 按目标进程身份与运行时 ABI 探测启用，不再按系统 build 或 Mach-O UUID 白名单匹配</li>
-          <li>支持从 iCloud Drive 导入主题包与目录</li>
-          <li>加入反向包审计，防止 build / UUID 钉定回归；校验失败时保留系统原生外观</li>
+          <li>设置新增「诊断」入口，一键复制兼容性报告</li>
+          <li>Runtime 逐项记录各 adapter 契约的 ABI 探测结果与最终状态，不支持的系统版本可凭用户上报直接定位</li>
+          <li>静态图标预热按运行设备实际屏幕 scale 进行，未实测机型也能预热真实请求的几何尺寸</li>
         </ul>
       </div>
     </section>
