@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.3"
+          "text": "0.1.4"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.3",
+          "title": "MarkTheme 0.1.4",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 修复 iOS 17.0–17.1 主屏幕图标不生效的问题\n- 与第三方图标插件（如 AppData）链式共存，不再使其他插件失效\n- 修复主题角标外圈残留系统红色圆环\n- 诊断报告覆盖全部功能面，按 adapter 分组逐功能定位",
+          "markdown": "- 修复主题拨号键盘按钮周围透出原生按钮外圈的问题\n- 修复与设置重组类插件（如 SettingsRevamp）的冲突：主题刷新通过实时方法链分发，不再使其他插件失效",
           "tintColor": "#6254E8"
         }
       ]
