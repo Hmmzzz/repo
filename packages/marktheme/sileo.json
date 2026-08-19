@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.4"
+          "text": "0.1.5"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.4",
+          "title": "MarkTheme 0.1.5",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 修复主题拨号键盘按钮周围透出原生按钮外圈的问题\n- 修复与设置重组类插件（如 SettingsRevamp）的冲突：主题刷新通过实时方法链分发，不再使其他插件失效",
+          "markdown": "- 主题库支持滑动删除整个主题，正在使用的主题不可删\n- 可直接导入软件包管理器已安装的主题，无需再经过文件选择器\n- 主题目录匹配不再区分大小写，包内主题目录旁有散落文件时也能正确识别",
           "tintColor": "#6254E8"
         }
       ]
