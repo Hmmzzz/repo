@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/publish.yml"
+      - "changelogs.json"
       - "pool/**"
       - "packages/**"
       - "scripts/**"

@@ -1,0 +1,98 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.4",
+  "tintColor": "#6254E8",
+  "tabs": [
+    {
+      "class": "DepictionStackView",
+      "tabname": "详情",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "模块化主题管理",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "在 App 内安全导入、预览和应用 SnowBoard / IconBundles 风格主题。MarkTheme 将归档解析、资源校验与 Generation 编译留在管理器 App，注入进程只读取已经验证的不可变资源。\n\n- 主题化主屏幕图标、文件夹、角标和图标阴影\n- 覆盖 Spotlight、设置、电话、分享页与状态栏资源\n- 支持作者遮罩或系统原生圆角遮罩\n- 保留 Library revision，可切换、回滚并安全恢复系统原生外观",
+          "tintColor": "#6254E8"
+        },
+        {
+          "class": "DepictionScreenshotsView",
+          "itemSize": "{160, 347}",
+          "itemCornerRadius": 22,
+          "screenshots": [
+            {
+              "url": "https://hmmzzz.github.io/repo/depictions/marktheme/screenshots/home.png",
+              "accessibilityText": "MarkTheme 主题库首页与当前主题"
+            },
+            {
+              "url": "https://hmmzzz.github.io/repo/depictions/marktheme/screenshots/theme-detail.png",
+              "accessibilityText": "MarkTheme 主题详情与组件选择"
+            }
+          ]
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "版本",
+          "text": "0.1.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "系统",
+          "text": "iOS 17.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "环境",
+          "text": "Rootless / RootHide"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "主题格式",
+          "text": "ZIP / DEB / TAR / 已展开目录"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "安装前请注意",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "**1.** 主题资源不完整或与系统不兼容可能影响图标与系统界面显示。\n\n**2.** 安装前请确认能够进入当前越狱的安全模式，并可通过软件包管理器移除 MarkTheme。\n\n**3.** 切换主题后需要一次 Respring 才能让新的 Runtime 映像在所有目标进程中生效。\n\n**4.** MarkTheme 不提供或分发第三方主题，请仅使用你有权安装的主题资产。",
+          "tintColor": "#6254E8"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "查看源代码",
+          "action": "https://github.com/Hmmzzz/MarkTheme",
+          "openExternal": 1,
+          "tintColor": "#6254E8"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "软件源主页",
+          "action": "https://hmmzzz.github.io/repo/",
+          "openExternal": 1,
+          "tintColor": "#6254E8"
+        }
+      ]
+    },
+    {
+      "class": "DepictionStackView",
+      "tabname": "更新日志",
+      "views": [
+        {
+          "class": "DepictionHeaderView",
+          "title": "MarkTheme 0.1.0",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "- 首个公开发布版本，提供 conventional rootless 与 RootHide 双 package scheme\n- 支持 SnowBoard / IconBundles 风格主题的安全导入、完整校验与 revision 管理\n- 支持主屏幕图标、文件夹、角标、阴影、Spotlight、设置、电话、分享页与状态栏资源\n- Runtime 按 bundle id、可执行文件名与系统 build 精确启用；身份、ABI 或资源校验失败时保留系统原生外观",
+          "tintColor": "#6254E8"
+        }
+      ]
+    }
+  ]
+}

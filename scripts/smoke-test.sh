@@ -14,7 +14,11 @@ for expected_file in \
   Packages Packages.gz Packages.bz2 Packages.xz Packages.zst Release index.html .nojekyll \
   CydiaIcon.png CydiaIcon@2x.png CydiaIcon@3x.png \
   depictions/markfont/icon.png depictions/markfont/index.html \
-  depictions/markfont/sileo.json; do
+  depictions/markfont/sileo.json \
+  depictions/marktheme/icon.png depictions/marktheme/index.html \
+  depictions/marktheme/sileo.json \
+  depictions/marktheme/screenshots/home.png \
+  depictions/marktheme/screenshots/theme-detail.png; do
   [[ -f "$repo_dir/$expected_file" ]] || {
     printf 'Smoke test failed: missing %s\n' "$expected_file" >&2
     exit 65
@@ -31,6 +35,9 @@ expected_sizes = {
     "CydiaIcon.png": (64, 64),
     "CydiaIcon@2x.png": (128, 128),
     "CydiaIcon@3x.png": (192, 192),
+    "depictions/marktheme/icon.png": (512, 512),
+    "depictions/marktheme/screenshots/home.png": (1179, 2556),
+    "depictions/marktheme/screenshots/theme-detail.png": (1179, 2556),
 }
 
 for filename, expected_size in expected_sizes.items():
@@ -44,7 +51,7 @@ for filename, expected_size in expected_sizes.items():
             f"found {actual_size[0]}x{actual_size[1]}."
         )
     color_type = data[25]
-    if color_type not in {4, 6} and b"tRNS" not in data:
+    if filename.startswith("CydiaIcon") and color_type not in {4, 6} and b"tRNS" not in data:
         raise SystemExit(
             f"Smoke test failed: {filename} must retain transparency for its rounded corners."
         )
@@ -108,6 +115,98 @@ if grep -Fq 'github.com/Hmmzzz/MarkFont' \
   printf 'Smoke test failed: unreleased MarkFont source link is public.\n' >&2
   exit 65
 fi
+
+python3 -m json.tool "$repo_dir/depictions/marktheme/sileo.json" >/dev/null
+python3 - \
+  "$repo_dir/depictions/marktheme/sileo.json" \
+  "$repo_dir/depictions/marktheme/index.html" \
+  "$repo_dir/Packages" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+sileo_path, web_path, packages_path = map(Path, sys.argv[1:])
+depiction_text = sileo_path.read_text(encoding="utf-8")
+web_text = web_path.read_text(encoding="utf-8")
+depiction = json.loads(depiction_text)
+
+details = depiction["tabs"][0]
+views = details["views"]
+first_view = views[0]
+if first_view.get("class") != "DepictionSubheaderView" or first_view.get("title") != "模块化主题管理":
+    raise SystemExit("Smoke test failed: MarkTheme details must start with the feature summary.")
+if any(view.get("class") in {"DepictionImageView", "DepictionHeaderView"} for view in views):
+    raise SystemExit("Smoke test failed: MarkTheme Sileo details duplicate the native package header.")
+
+screenshots = [view for view in views if view.get("class") == "DepictionScreenshotsView"]
+if len(screenshots) != 1:
+    raise SystemExit("Smoke test failed: MarkTheme Sileo depiction must have one screenshot gallery.")
+gallery = screenshots[0]
+if gallery.get("itemSize") != "{160, 347}" or gallery.get("itemCornerRadius") != 22:
+    raise SystemExit("Smoke test failed: MarkTheme screenshot gallery has unexpected sizing.")
+expected_screenshots = [
+    "https://hmmzzz.github.io/repo/depictions/marktheme/screenshots/home.png",
+    "https://hmmzzz.github.io/repo/depictions/marktheme/screenshots/theme-detail.png",
+]
+if [item.get("url") for item in gallery.get("screenshots", [])] != expected_screenshots:
+    raise SystemExit("Smoke test failed: MarkTheme screenshot URLs are incomplete or out of order.")
+
+for name, content in (("Sileo", depiction_text), ("web", web_text)):
+    for phrase in (
+        "系统原生外观",
+        "状态栏",
+        "Generation",
+        "Respring",
+        "https://github.com/Hmmzzz/MarkTheme",
+    ):
+        if phrase not in content:
+            raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
+for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
+    if relative_screenshot not in web_text:
+        raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
+if "MarkTheme 0.1.0" not in depiction_text or "MarkTheme 0.1.0" not in web_text:
+    raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
+
+def parse_stanzas(text):
+    stanzas = []
+    for raw in text.strip().split("\n\n"):
+        fields = {}
+        current = None
+        for line in raw.splitlines():
+            if line.startswith((" ", "\t")) and current:
+                fields[current] += "\n" + line
+            else:
+                current, value = line.split(":", 1)
+                fields[current] = value.lstrip()
+        stanzas.append(fields)
+    return stanzas
+
+marktheme = [
+    stanza
+    for stanza in parse_stanzas(packages_path.read_text(encoding="utf-8"))
+    if stanza.get("Package") == "com.hmmzzz.marktheme"
+]
+if len(marktheme) != 2:
+    raise SystemExit("Smoke test failed: Packages must contain two MarkTheme variants.")
+if {stanza.get("Architecture") for stanza in marktheme} != {"iphoneos-arm64", "iphoneos-arm64e"}:
+    raise SystemExit("Smoke test failed: MarkTheme architectures are incomplete.")
+
+expected_fields = {
+    "Version": "0.1.0",
+    "Homepage": "https://github.com/Hmmzzz/MarkTheme",
+    "Icon": "https://hmmzzz.github.io/repo/depictions/marktheme/icon.png",
+    "Depiction": "https://hmmzzz.github.io/repo/depictions/marktheme/",
+    "SileoDepiction": "https://hmmzzz.github.io/repo/depictions/marktheme/sileo.json",
+}
+for stanza in marktheme:
+    for field, expected in expected_fields.items():
+        if stanza.get(field) != expected:
+            raise SystemExit(f"Smoke test failed: MarkTheme {field} does not match {expected}.")
+    depends = stanza.get("Depends", "")
+    for dependency in ("firmware (>= 17.0)", "uikittools", "ellekit (>= 1.2)"):
+        if dependency not in depends:
+            raise SystemExit(f"Smoke test failed: MarkTheme dependency is missing: {dependency}.")
+PY
 
 cmp "$repo_dir/Packages" <(gzip -dc "$repo_dir/Packages.gz")
 cmp "$repo_dir/Packages" <(bzip2 -dc "$repo_dir/Packages.bz2")

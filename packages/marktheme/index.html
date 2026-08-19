@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="MarkTheme 是面向 iOS 17+ Rootless 与 RootHide 环境的模块化主题引擎与管理器。">
+  <title>MarkTheme</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+      --background: #f4f2f9;
+      --surface: rgba(255, 255, 255, .84);
+      --surface-strong: #fff;
+      --text: #171824;
+      --secondary: #686978;
+      --quiet: #9293a2;
+      --accent: #6254e8;
+      --accent-soft: #ece9ff;
+      --coral: #e35a3b;
+      --success: #218b61;
+      --border: rgba(32, 29, 61, .09);
+      --shadow: 0 20px 54px rgba(42, 34, 91, .11);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: max(22px, env(safe-area-inset-top)) 16px max(36px, env(safe-area-inset-bottom));
+      color: var(--text);
+      background:
+        radial-gradient(circle at 90% 3%, rgba(99, 84, 232, .18), transparent 34%),
+        radial-gradient(circle at 4% 40%, rgba(34, 195, 238, .12), transparent 32%),
+        var(--background);
+    }
+
+    main { width: min(720px, 100%); margin: 0 auto; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 19px;
+      align-items: center;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 21px;
+      box-shadow: 0 12px 28px rgba(26, 22, 64, .22);
+    }
+
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 6px; font-size: 32px; line-height: 1.04; letter-spacing: -.04em; }
+    h2 { margin-bottom: 12px; font-size: 18px; letter-spacing: -.02em; }
+    .tagline { margin-bottom: 11px; color: var(--secondary); font-size: 15px; line-height: 1.45; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 11%, transparent);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    section {
+      margin-top: 14px;
+      padding: 21px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface);
+    }
+
+    .body-copy, li { color: var(--secondary); font-size: 14px; line-height: 1.72; }
+    .body-copy:last-child { margin-bottom: 0; }
+    ul { margin: 0; padding-left: 20px; }
+    li + li { margin-top: 7px; }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .screenshots figure { margin: 0; }
+    .screenshots img {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface-strong);
+      box-shadow: 0 14px 32px rgba(31, 27, 64, .12);
+    }
+    .screenshots figcaption {
+      padding: 9px 5px 2px;
+      color: var(--quiet);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .warning {
+      border-color: color-mix(in srgb, var(--coral) 22%, var(--border));
+      background: color-mix(in srgb, #fee9e3 48%, var(--surface));
+    }
+    .warning h2 { color: var(--coral); }
+
+    .release { display: flex; gap: 14px; align-items: flex-start; }
+    .version {
+      flex: 0 0 auto;
+      padding: 6px 9px;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 13px;
+      font-weight: 760;
+    }
+    .release ul { flex: 1; }
+
+    .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 50px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      background: var(--surface-strong);
+      font-size: 14px;
+      font-weight: 720;
+      text-decoration: none;
+    }
+    .link::after { color: var(--quiet); content: "›"; font-size: 22px; font-weight: 400; }
+    footer { padding: 21px 12px 0; color: var(--quiet); font-size: 11px; line-height: 1.65; text-align: center; }
+
+    @media (max-width: 470px) {
+      .hero { grid-template-columns: 72px minmax(0, 1fr); padding: 18px; }
+      .icon { width: 72px; height: 72px; border-radius: 17px; }
+      h1 { font-size: 27px; }
+      .screenshots { gap: 9px; padding: 9px; }
+      .screenshots img { border-radius: 15px; }
+      .links { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #0c0c15;
+        --surface: rgba(25, 24, 39, .86);
+        --surface-strong: #211f33;
+        --text: #f5f3ff;
+        --secondary: #bbb7cb;
+        --quiet: #8d899e;
+        --accent: #8d82ff;
+        --accent-soft: #2d294b;
+        --coral: #f07155;
+        --success: #58c995;
+        --border: rgba(255, 255, 255, .085);
+        --shadow: 0 24px 60px rgba(0, 0, 0, .3);
+      }
+      .warning { background: color-mix(in srgb, #3b211d 55%, var(--surface)); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <img class="icon" src="./icon.png" alt="MarkTheme 图标">
+      <div>
+        <h1>MarkTheme</h1>
+        <p class="tagline">先预览，再把喜欢的图标带到主屏幕。</p>
+        <div class="chips" aria-label="兼容性">
+          <span class="chip">iOS 17+</span>
+          <span class="chip">Rootless</span>
+          <span class="chip">RootHide</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="screenshots" aria-label="应用截图">
+      <figure>
+        <img src="./screenshots/home.png" alt="MarkTheme 主题库首页与当前主题">
+        <figcaption>主题库与当前主题</figcaption>
+      </figure>
+      <figure>
+        <img src="./screenshots/theme-detail.png" alt="MarkTheme 主题详情与组件选择">
+        <figcaption>主题详情与组件选择</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>模块化主题管理</h2>
+      <p class="body-copy">在 App 内导入、审阅和应用 SnowBoard / IconBundles 风格主题。解析、校验与 Generation 编译全部在管理器 App 内完成，注入进程只读取经过验证的不可变资源。</p>
+      <ul>
+        <li>支持 ZIP、DEB、TAR 系归档和已展开目录</li>
+        <li>主题化图标、文件夹、角标、阴影、Spotlight、设置、电话、分享页与状态栏</li>
+        <li>支持主题组件开关、样式变体和 Library revision 管理</li>
+        <li>身份、ABI 或资源校验失败时保留系统原生外观</li>
+      </ul>
+    </section>
+
+    <section class="warning">
+      <h2>安装前请注意</h2>
+      <p class="body-copy">主题资产不完整或不兼容可能影响图标与系统界面显示。安装前请确认能够进入当前越狱的安全模式，并可通过软件包管理器移除 MarkTheme。</p>
+      <p class="body-copy">切换主题后需要一次 Respring。MarkTheme 不提供或分发第三方主题，请仅使用你有权安装的主题资产。</p>
+    </section>
+
+    <section>
+      <h2>MarkTheme 0.1.0</h2>
+      <div class="release">
+        <span class="version">0.1.0</span>
+        <ul>
+          <li>首个公开发布版本，支持 conventional rootless 与 RootHide</li>
+          <li>安全导入、完整资源校验、原子 Generation 发布与 revision 恢复</li>
+          <li>覆盖主屏幕与多个系统图标表面，并支持遮罩、阴影、角标和状态栏组件</li>
+          <li>Runtime 严格匹配系统 build 与目标进程，校验失败时安全回退</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="links" aria-label="相关链接">
+      <a class="link" href="https://github.com/Hmmzzz/MarkTheme">查看源代码</a>
+      <a class="link" href="../../">软件源主页</a>
+    </section>
+
+    <footer>MarkTheme 与 Apple Inc.、第三方主题作者及其他主题引擎无关。</footer>
+  </main>
+</body>
+</html>
