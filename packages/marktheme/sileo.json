@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.5"
+          "text": "0.1.6"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.5",
+          "title": "MarkTheme 0.1.6",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 主题库支持滑动删除整个主题，正在使用的主题不可删\n- 可直接导入软件包管理器已安装的主题，无需再经过文件选择器\n- 主题目录匹配不再区分大小写，包内主题目录旁有散落文件时也能正确识别",
+          "markdown": "- 修复 iOS 18 主屏幕图标打开/关闭动画中主题图与系统图不同步的问题，并完善图标缓存刷新\n- 修复使用系统原生遮罩时的主题图标合成\n- 增强主题导入稳定性与诊断信息\n- 主题删除按钮改为更清晰的圆形样式",
           "tintColor": "#6254E8"
         }
       ]

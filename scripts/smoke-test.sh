@@ -164,10 +164,10 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
 for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
     if relative_screenshot not in web_text:
         raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
-if "MarkTheme 0.1.5" not in depiction_text or "MarkTheme 0.1.5" not in web_text:
+if "MarkTheme 0.1.6" not in depiction_text or "MarkTheme 0.1.6" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
-    for phrase in ("滑动删除", "已安装的主题", "不再区分大小写"):
+    for phrase in ("iOS 18", "系统原生遮罩", "导入稳定性", "圆形样式"):
         if phrase not in content:
             raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
     for stale_phrase in (
@@ -183,6 +183,9 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
         "拨号键盘",
         "SettingsRevamp",
         "实时方法链",
+        "滑动删除",
+        "已安装的主题",
+        "不再区分大小写",
     ):
         if stale_phrase in content:
             raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction retains {stale_phrase}.")
@@ -208,7 +211,7 @@ marktheme = [
 ]
 expected_variants = {
     (version, architecture)
-    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5")
+    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6")
     for architecture in ("iphoneos-arm64", "iphoneos-arm64e")
 }
 actual_variants = {
