@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="MarkTheme 是面向 iOS 17+ Rootless 与 RootHide 环境的模块化主题引擎与管理器。">
+  <meta name="description" content="MarkTheme 是面向 iOS 16+ Rootless 与 RootHide 环境的模块化主题引擎与管理器。">
   <title>MarkTheme</title>
   <style>
     :root {
@@ -183,7 +183,7 @@
         <h1>MarkTheme</h1>
         <p class="tagline">先预览，再把喜欢的图标带到主屏幕。</p>
         <div class="chips" aria-label="兼容性">
-          <span class="chip">iOS 17+</span>
+          <span class="chip">iOS 16+</span>
           <span class="chip">Rootless</span>
           <span class="chip">RootHide</span>
         </div>
@@ -206,7 +206,7 @@
       <p class="body-copy">在 App 内导入、审阅和应用 SnowBoard / IconBundles 风格主题。解析、校验与 Generation 编译全部在管理器 App 内完成，注入进程只读取经过验证的不可变资源。</p>
       <ul>
         <li>支持 ZIP、DEB、TAR 系归档和已展开目录</li>
-        <li>主题化图标、文件夹、角标、阴影、Spotlight、设置、电话、分享页与状态栏</li>
+        <li>主题化图标、文件夹、角标、阴影、Spotlight、设置、电话、照片分享页、系统分享页与状态栏</li>
         <li>支持主题组件开关、样式变体和 Library revision 管理</li>
         <li>身份、ABI 或资源校验失败时保留系统原生外观</li>
       </ul>
@@ -219,14 +219,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.1.6</h2>
+      <h2>MarkTheme 0.1.7</h2>
       <div class="release">
-        <span class="version">0.1.6</span>
+        <span class="version">0.1.7</span>
         <ul>
-          <li>修复 iOS 18 主屏幕图标打开/关闭动画中主题图与系统图不同步的问题，并完善图标缓存刷新</li>
-          <li>修复使用系统原生遮罩时的主题图标合成</li>
-          <li>增强主题导入稳定性与诊断信息</li>
-          <li>主题删除按钮改为更清晰的圆形样式</li>
+          <li>最低支持版本扩展至 iOS 16.0，补齐 iOS 16 状态栏、角标与分享图标 ABI</li>
+          <li>新增 UIKit ShareUI 与照片分享宿主，修复普通分享页和照片分享页部分图标未替换的问题</li>
+          <li>分享图标生产入口可独立延迟安装，兼容宿主按需加载</li>
+          <li>增强 SnowBoard / IconBundles 图标文件名与解析变体兼容</li>
         </ul>
       </div>
     </section>
