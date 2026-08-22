@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.7",
+          "title": "MarkTheme 0.1.8",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 最低支持版本扩展至 iOS 16.0，补齐 iOS 16 状态栏、角标与分享图标 ABI\n- 新增 UIKit ShareUI 与照片分享宿主，修复普通分享页和照片分享页部分图标未替换的问题\n- ShareSheet Activity、SharingUI provider 与 UIKit App icon 入口可独立延迟安装\n- 增强 SnowBoard / IconBundles 图标文件名与解析变体兼容",
+          "markdown": "- 新增 iOS 17.3.1 通知中心应用图标适配，复用静态图标与遮罩链路\n- 按 notificationRequest → bulletin → sectionID 精确恢复通知所属应用，ABI 不匹配时保留系统图标\n- 忽略缺少基础背景的孤立文件夹浅色资源，避免其阻断主题导入\n- Runtime Helper 可修复旧版本 Store 目录权限，并返回具体失败操作与 POSIX errno",
           "tintColor": "#6254E8"
         }
       ]
