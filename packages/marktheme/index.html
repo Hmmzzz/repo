@@ -206,7 +206,8 @@
       <p class="body-copy">在 App 内导入、审阅和应用 SnowBoard / IconBundles 风格主题。解析、校验与 Generation 编译全部在管理器 App 内完成，注入进程只读取经过验证的不可变资源。</p>
       <ul>
         <li>支持 ZIP、DEB、TAR 系归档和已展开目录</li>
-        <li>主题化图标、文件夹、角标、阴影、Spotlight、设置、电话、照片分享页、系统分享页与状态栏</li>
+        <li>主题化主屏幕与通知中心图标、文件夹、角标、阴影、Spotlight、设置、电话、照片分享页、系统分享页与状态栏</li>
+        <li>支持作者遮罩、底图与图标 overlay，统一按“遮罩 → overlay”顺序合成</li>
         <li>支持主题组件开关、样式变体和 Library revision 管理</li>
         <li>身份、ABI 或资源校验失败时保留系统原生外观</li>
       </ul>
@@ -219,14 +220,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.1.8</h2>
+      <h2>MarkTheme 0.1.9</h2>
       <div class="release">
-        <span class="version">0.1.8</span>
+        <span class="version">0.1.9</span>
         <ul>
-          <li>新增 iOS 17.3.1 通知中心应用图标适配，复用静态图标与遮罩链路</li>
-          <li>按 notificationRequest → bulletin → sectionID 精确恢复通知所属应用，ABI 不匹配时保留系统图标</li>
-          <li>忽略缺少基础背景的孤立文件夹浅色资源，避免其阻断主题导入</li>
-          <li>Runtime Helper 可修复旧版本 Store 目录权限，并返回具体失败操作与 POSIX errno</li>
+          <li>新增传统 WinterBoard AppIconMask / AppIconPattern 与 Anemone 风格图标 overlay</li>
+          <li>主屏幕、通知中心、Spotlight、设置与分享页统一按“遮罩 → overlay”顺序合成</li>
+          <li>修复 iOS 17.3.1 返回桌面动画中主题图标下方出现同色方块残影的问题</li>
+          <li>仅对当前 MarkTheme 图标启用通过实时 ABI 校验的短生命周期方形代理，保持原生动画与 App 快照几何</li>
         </ul>
       </div>
     </section>

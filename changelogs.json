@@ -1,5 +1,6 @@
 {
   "com.hmmzzz.marktheme": {
+    "0.1.9": "新增传统 WinterBoard AppIconMask / AppIconPattern 与 Anemone 风格图标 overlay，统一按“遮罩 → overlay”顺序在主屏幕、通知中心、Spotlight、设置与分享页呈现；修复 iOS 17.3.1 返回桌面动画中主题图标被非等比拉伸、在图标下方形成同色方块残影的问题，通过实时 ABI 校验的短生命周期方形代理保持系统动画时序与 App 快照几何不变。",
     "0.1.8": "新增 iOS 17.3.1 通知中心应用图标适配，按 notificationRequest、bulletin 与 sectionID 精确恢复应用身份，并复用静态图标与遮罩链路；修复缺少基础图片的孤立文件夹浅色资源可能阻断主题导入的问题；Runtime Helper 可修复旧版本 Store 目录权限，并返回具体失败操作与 POSIX errno。",
     "0.1.7": "最低系统版本扩展至 iOS 16.0；适配 iOS 16 状态栏、角标与分享图标链路，补充 UIKit ShareUI、照片分享页及延迟加载入口；增强 SnowBoard / IconBundles 图标文件名与解析变体兼容，并修复部分分享页图标未替换的问题。",
     "0.1.6": "修复 iOS 18 主屏幕图标打开/关闭动画中主题图与系统图不同步的问题，并完善图标缓存刷新；修复使用系统原生遮罩时的主题图标合成；增强主题导入稳定性与诊断信息；主题删除按钮改为更清晰的圆形样式。",

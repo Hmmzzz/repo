@@ -151,6 +151,15 @@ expected_screenshots = [
 if [item.get("url") for item in gallery.get("screenshots", [])] != expected_screenshots:
     raise SystemExit("Smoke test failed: MarkTheme screenshot URLs are incomplete or out of order.")
 
+version_rows = [
+    view
+    for view in views
+    if view.get("class") == "DepictionTableTextView"
+    and view.get("title") == "版本"
+]
+if len(version_rows) != 1 or version_rows[0].get("text") != "0.1.9":
+    raise SystemExit("Smoke test failed: MarkTheme detail version must be 0.1.9.")
+
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
     for phrase in (
         "系统原生外观",
@@ -164,10 +173,10 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
 for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
     if relative_screenshot not in web_text:
         raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
-if "MarkTheme 0.1.8" not in depiction_text or "MarkTheme 0.1.8" not in web_text:
+if "MarkTheme 0.1.9" not in depiction_text or "MarkTheme 0.1.9" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
-    for phrase in ("通知中心", "sectionID", "孤立文件夹", "POSIX errno"):
+    for phrase in ("AppIconMask", "overlay", "返回桌面", "方形代理"):
         if phrase not in content:
             raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
     for stale_phrase in (
@@ -211,7 +220,7 @@ marktheme = [
 ]
 expected_variants = {
     (version, architecture)
-    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8")
+    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8", "0.1.9")
     for architecture in ("iphoneos-arm64", "iphoneos-arm64e")
 }
 actual_variants = {
@@ -232,7 +241,7 @@ for stanza in marktheme:
         if stanza.get(field) != expected:
             raise SystemExit(f"Smoke test failed: MarkTheme {field} does not match {expected}.")
     depends = stanza.get("Depends", "")
-    minimum_firmware = "firmware (>= 16.0)" if stanza.get("Version") in {"0.1.7", "0.1.8"} else "firmware (>= 17.0)"
+    minimum_firmware = "firmware (>= 16.0)" if stanza.get("Version") in {"0.1.7", "0.1.8", "0.1.9"} else "firmware (>= 17.0)"
     for dependency in (minimum_firmware, "uikittools", "ellekit (>= 1.2)"):
         if dependency not in depends:
             raise SystemExit(f"Smoke test failed: MarkTheme dependency is missing: {dependency}.")
