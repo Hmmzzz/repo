@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.1.9"
+          "text": "0.2.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.1.9",
+          "title": "MarkTheme 0.2.0",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 新增传统 WinterBoard AppIconMask / AppIconPattern 与 Anemone 风格图标 overlay\n- 主屏幕、通知中心、Spotlight、设置与分享页统一按“遮罩 → overlay”顺序合成\n- 修复 iOS 17.3.1 返回桌面动画中主题图标下方出现同色方块残影的问题\n- 仅对当前 MarkTheme 图标启用通过实时 ABI 校验的短生命周期方形代理，保持原生动画与 App 快照几何",
+          "markdown": "- 导入自动识别深层包装、散落或缺少标准外层目录的受支持资源，合并 .theme 组件并整理为 MarkTheme 标准主题目录\n- 修复主题仅提供图标 overlay 时，无作者底图的 App 图标得不到 overlay 的问题；系统原生遮罩只作用于有作者底图的图标\n- 修复返回桌面收起动画中方形代理抑制系统动画圆角遮罩、图标瞬间变方的问题：方形代理仅在圆角已合成入像素（预圆角）时启用",
           "tintColor": "#6254E8"
         }
       ]

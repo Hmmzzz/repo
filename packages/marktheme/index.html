@@ -220,14 +220,13 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.1.9</h2>
+      <h2>MarkTheme 0.2.0</h2>
       <div class="release">
-        <span class="version">0.1.9</span>
+        <span class="version">0.2.0</span>
         <ul>
-          <li>新增传统 WinterBoard AppIconMask / AppIconPattern 与 Anemone 风格图标 overlay</li>
-          <li>主屏幕、通知中心、Spotlight、设置与分享页统一按“遮罩 → overlay”顺序合成</li>
-          <li>修复 iOS 17.3.1 返回桌面动画中主题图标下方出现同色方块残影的问题</li>
-          <li>仅对当前 MarkTheme 图标启用通过实时 ABI 校验的短生命周期方形代理，保持原生动画与 App 快照几何</li>
+          <li>导入自动识别深层包装、散落或缺少标准外层目录的受支持资源，合并 .theme 组件并整理为 MarkTheme 标准主题目录</li>
+          <li>修复主题仅提供图标 overlay 时，无作者底图的 App 图标得不到 overlay 的问题</li>
+          <li>修复返回桌面收起动画中图标瞬间变方的问题，方形代理仅在圆角已合成入像素（预圆角）时启用</li>
         </ul>
       </div>
     </section>
