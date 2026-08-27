@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.2.1"
+          "text": "0.2.2"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.2.1",
+          "title": "MarkTheme 0.2.2",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 暂时将安装下限调整为 iOS 17.0\n- 桌面图标 overlay 按实际载体尺寸与 display scale 自适应，修复部分 iOS 17 版本中分享界面正常但桌面不显示的问题\n- 图标 overlay 支持文件夹，并置于文件夹背景和原生小图标之上\n- 诊断页提供精简的桌面 overlay 结论与计数，可一键导出 MarkTheme-Diagnostics.txt",
+          "markdown": "- 启用优化代码生成，同时保留完整诊断符号，降低 Manager、Helper 与 Runtime 的 CPU 开销\n- 优化 generation index 查找，并减少主题预览、canonical JSON 与资源定位中的临时对象和重复扫描\n- Runtime 静态资源缓存改为单锁命中，mask 与 overlay 重复显示直接复用已合成图像\n- 文件夹 overlay 与图标阴影跳过未变化的 view/layer 更新，减少 Core Animation 提交",
           "tintColor": "#6254E8"
         }
       ]
