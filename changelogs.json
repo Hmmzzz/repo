@@ -1,5 +1,6 @@
 {
   "com.hmmzzz.marktheme": {
+    "0.2.1": "暂时将安装下限调整为 iOS 17.0；桌面图标 overlay 改为按实际图标载体尺寸与 display scale 自适应缩放，修复部分 iOS 17 版本中分享界面正常但桌面不显示的问题；图标 overlay 同时支持文件夹，并置于文件夹背景和原生小图标之上；诊断页增加精简的桌面 overlay 结论与计数，支持一键导出 MarkTheme-Diagnostics.txt。",
     "0.2.0": "导入流程自动识别深层包装、散落或缺少标准外层目录的受支持资源，合并其中的 .theme 组件并实体整理为 MarkTheme 标准主题目录，同时保留生态命名；修复主题仅提供图标 overlay 时未提供作者底图的 App 得不到 overlay 合成的问题，系统原生遮罩只作用于有作者底图的图标、不再对原生图标二次裁剪；修复返回桌面收起动画中方形代理抑制 SpringBoard 动画圆角遮罩、图标瞬间变方的问题，代理仅在遮罩已合成入像素（预圆角）时启用，其余情况保留原生载体。",
     "0.1.9": "新增传统 WinterBoard AppIconMask / AppIconPattern 与 Anemone 风格图标 overlay，统一按“遮罩 → overlay”顺序在主屏幕、通知中心、Spotlight、设置与分享页呈现；修复 iOS 17.3.1 返回桌面动画中主题图标被非等比拉伸、在图标下方形成同色方块残影的问题，通过实时 ABI 校验的短生命周期方形代理保持系统动画时序与 App 快照几何不变。",
     "0.1.8": "新增 iOS 17.3.1 通知中心应用图标适配，按 notificationRequest、bulletin 与 sectionID 精确恢复应用身份，并复用静态图标与遮罩链路；修复缺少基础图片的孤立文件夹浅色资源可能阻断主题导入的问题；Runtime Helper 可修复旧版本 Store 目录权限，并返回具体失败操作与 POSIX errno。",

@@ -35,12 +35,12 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.2.0"
+          "text": "0.2.1"
         },
         {
           "class": "DepictionTableTextView",
           "title": "系统",
-          "text": "iOS 16.0+"
+          "text": "iOS 17.0+"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.2.0",
+          "title": "MarkTheme 0.2.1",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 导入自动识别深层包装、散落或缺少标准外层目录的受支持资源，合并 .theme 组件并整理为 MarkTheme 标准主题目录\n- 修复主题仅提供图标 overlay 时，无作者底图的 App 图标得不到 overlay 的问题；系统原生遮罩只作用于有作者底图的图标\n- 修复返回桌面收起动画中方形代理抑制系统动画圆角遮罩、图标瞬间变方的问题：方形代理仅在圆角已合成入像素（预圆角）时启用",
+          "markdown": "- 暂时将安装下限调整为 iOS 17.0\n- 桌面图标 overlay 按实际载体尺寸与 display scale 自适应，修复部分 iOS 17 版本中分享界面正常但桌面不显示的问题\n- 图标 overlay 支持文件夹，并置于文件夹背景和原生小图标之上\n- 诊断页提供精简的桌面 overlay 结论与计数，可一键导出 MarkTheme-Diagnostics.txt",
           "tintColor": "#6254E8"
         }
       ]

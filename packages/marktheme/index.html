@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="MarkTheme 是面向 iOS 16+ Rootless 与 RootHide 环境的模块化主题引擎与管理器。">
+  <meta name="description" content="MarkTheme 是面向 iOS 17+ Rootless 与 RootHide 环境的模块化主题引擎与管理器。">
   <title>MarkTheme</title>
   <style>
     :root {
@@ -183,7 +183,7 @@
         <h1>MarkTheme</h1>
         <p class="tagline">先预览，再把喜欢的图标带到主屏幕。</p>
         <div class="chips" aria-label="兼容性">
-          <span class="chip">iOS 16+</span>
+          <span class="chip">iOS 17+</span>
           <span class="chip">Rootless</span>
           <span class="chip">RootHide</span>
         </div>
@@ -220,13 +220,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.2.0</h2>
+      <h2>MarkTheme 0.2.1</h2>
       <div class="release">
-        <span class="version">0.2.0</span>
+        <span class="version">0.2.1</span>
         <ul>
-          <li>导入自动识别深层包装、散落或缺少标准外层目录的受支持资源，合并 .theme 组件并整理为 MarkTheme 标准主题目录</li>
-          <li>修复主题仅提供图标 overlay 时，无作者底图的 App 图标得不到 overlay 的问题</li>
-          <li>修复返回桌面收起动画中图标瞬间变方的问题，方形代理仅在圆角已合成入像素（预圆角）时启用</li>
+          <li>暂时将安装下限调整为 iOS 17.0</li>
+          <li>桌面图标 overlay 按实际载体尺寸与 display scale 自适应，修复部分 iOS 17 版本中分享界面正常但桌面不显示的问题</li>
+          <li>图标 overlay 支持文件夹，并置于文件夹背景和原生小图标之上</li>
+          <li>诊断页提供精简的桌面 overlay 结论与计数，可一键导出 MarkTheme-Diagnostics.txt</li>
         </ul>
       </div>
     </section>
