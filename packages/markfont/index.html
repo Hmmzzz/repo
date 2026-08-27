@@ -242,12 +242,12 @@
     <section>
       <h2>更新内容</h2>
       <div class="release">
-        <span class="version">0.3.7</span>
+        <span class="version">0.3.8</span>
         <ul>
-          <li>iOS 16–17 导入含多个苹方候选的字体包时，自动选择标点占位更紧凑的「专版」候选</li>
-          <li>不同文件名的专版（如「iOS17专用」「改逗号」版）也能被识别并直接导入</li>
-          <li>导入预览标注自动选择结果；落选文件保留在「未使用」列表</li>
-          <li>iOS 18–26 行为不变；字体文件仍为逐字节复制并全程 SHA-256 校验</li>
+          <li>修复 RootHide 与 conventional rootless 首次安装或升级时可能出现的 “secure directory anchor has an unexpected owner” 错误</li>
+          <li>越狱平台管理目录不再因 owner/mode 与 MarkFont 旧假设不同而阻断 package lifecycle preflight</li>
+          <li>MarkFont 自有子目录仍严格校验 owner、group 与写权限，并继续拒绝符号链接路径</li>
+          <li>现有字体方案、Stock 快照、mirror 与 state 在正常升级时保持不变</li>
         </ul>
       </div>
     </section>
