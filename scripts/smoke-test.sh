@@ -157,8 +157,8 @@ version_rows = [
     if view.get("class") == "DepictionTableTextView"
     and view.get("title") == "版本"
 ]
-if len(version_rows) != 1 or version_rows[0].get("text") != "0.2.2":
-    raise SystemExit("Smoke test failed: MarkTheme detail version must be 0.2.2.")
+if len(version_rows) != 1 or version_rows[0].get("text") != "0.2.3":
+    raise SystemExit("Smoke test failed: MarkTheme detail version must be 0.2.3.")
 
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
     for phrase in (
@@ -173,12 +173,12 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
 for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
     if relative_screenshot not in web_text:
         raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
-if "MarkTheme 0.2.2" not in depiction_text or "MarkTheme 0.2.2" not in web_text:
+if "MarkTheme 0.2.3" not in depiction_text or "MarkTheme 0.2.3" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
 if '"text": "iOS 17.0+"' not in depiction_text or "iOS 17+" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme depictions do not require iOS 17+.")
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
-    for phrase in ("优化代码生成", "generation index", "单锁", "Core Animation"):
+    for phrase in ("发热和能耗", "全局源资源", "资源代际", "内存压力"):
         if phrase not in content:
             raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
     for stale_phrase in (
@@ -222,7 +222,7 @@ marktheme = [
 ]
 expected_variants = {
     (version, architecture)
-    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8", "0.1.9", "0.2.0", "0.2.1", "0.2.2")
+    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8", "0.1.9", "0.2.0", "0.2.1", "0.2.2", "0.2.3")
     for architecture in ("iphoneos-arm64", "iphoneos-arm64e")
 }
 actual_variants = {
