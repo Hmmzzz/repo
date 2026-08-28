@@ -220,14 +220,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.2.3</h2>
+      <h2>MarkTheme 0.2.5</h2>
       <div class="release">
-        <span class="version">0.2.3</span>
+        <span class="version">0.2.5</span>
         <ul>
-          <li>修复全局图标 overlay 在高频显示 Getter 中重复解析与合成造成的发热和能耗问题</li>
-          <li>overlay 与自定义 mask 各自只读取一个全局源资源，次级尺寸按需派生</li>
-          <li>按资源代际、view 与底层 raster 复用显示结果，减少重复解码与像素合成</li>
-          <li>缓存继续受 16 MB 成本上限约束，内存压力时主动释放派生结果</li>
+          <li>遮罩状态改为原子标量快照，减少高频图标显示路径中的对象读取</li>
+          <li>静态图标预热按 Generation 索引筛选实际存在资源的 App，并跳过空批次主线程往返</li>
+          <li>重复刷新登记、状态栏与 UI 资源解析、已取消预览任务提前终止</li>
+          <li>移除未被报告消费的热路径诊断写入，保留完整性校验、回滚与系统原生 fallback</li>
         </ul>
       </div>
     </section>
