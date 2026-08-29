@@ -14,7 +14,7 @@
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "在 App 内安全导入、预览和应用 SnowBoard / IconBundles 风格主题。MarkTheme 将归档解析、资源校验与 Generation 编译留在管理器 App，注入进程只读取已经验证的不可变资源。\n\n- 主题化主屏幕与通知中心图标、文件夹、角标和图标阴影\n- 覆盖 Spotlight、设置、电话、照片分享页、系统分享页与状态栏资源\n- 支持作者遮罩、底图与图标 overlay，统一按“遮罩 → overlay”顺序合成\n- 保留 Library revision，可切换、回滚并安全恢复系统原生外观",
+          "markdown": "在 App 内安全导入、预览和应用 SnowBoard / IconBundles 风格主题。MarkTheme 将归档解析、资源校验与 Generation 编译留在管理器 App，注入进程只读取已经验证的不可变资源。\n\n- 主题化主屏幕与通知中心图标、文件夹、角标和图标阴影\n- 覆盖 Spotlight、设置、电话、照片分享页、系统分享页与状态栏资源\n- 支持跨主题混搭与功能独立开关，基础主题缺资源时可由其他主题补齐\n- 支持作者遮罩、底图与图标 overlay，统一按“遮罩 → overlay”顺序合成\n- 保留 Library revision，可切换、回滚并安全恢复系统原生外观",
           "tintColor": "#6254E8"
         },
         {
@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.2.5"
+          "text": "0.2.6"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.2.5",
+          "title": "MarkTheme 0.2.6",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 遮罩状态改为原子标量快照，减少高频图标显示路径中的对象读取\n- 静态图标预热按 Generation 索引筛选实际存在资源的 App，并跳过空批次主线程往返\n- 重复刷新登记、状态栏与 UI 资源解析、已取消预览任务提前终止\n- 移除未被报告消费的热路径诊断写入，保留完整性校验、回滚与系统原生 fallback",
+          "markdown": "- 主题详情始终显示全部支持功能，缺资源时也可从其他已导入主题补齐\n- 每项功能可独立选择来源和开关；关闭后从新 Generation 移除并回退系统原生外观\n- 修复关闭或切换 overlay 后仍显示旧 overlay 的问题\n- 优化来源选择、首页主题详情入口与 Sheet 层次，保留完整性校验和回滚",
           "tintColor": "#6254E8"
         }
       ]

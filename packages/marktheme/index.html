@@ -208,7 +208,8 @@
         <li>支持 ZIP、DEB、TAR 系归档和已展开目录</li>
         <li>主题化主屏幕与通知中心图标、文件夹、角标、阴影、Spotlight、设置、电话、照片分享页、系统分享页与状态栏</li>
         <li>支持作者遮罩、底图与图标 overlay，统一按“遮罩 → overlay”顺序合成</li>
-        <li>支持主题组件开关、样式变体和 Library revision 管理</li>
+        <li>支持跨主题混搭与功能独立开关，基础主题缺资源时可由其他主题补齐</li>
+        <li>支持主题组件、样式变体和 Library revision 管理</li>
         <li>身份、ABI 或资源校验失败时保留系统原生外观</li>
       </ul>
     </section>
@@ -220,14 +221,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.2.5</h2>
+      <h2>MarkTheme 0.2.6</h2>
       <div class="release">
-        <span class="version">0.2.5</span>
+        <span class="version">0.2.6</span>
         <ul>
-          <li>遮罩状态改为原子标量快照，减少高频图标显示路径中的对象读取</li>
-          <li>静态图标预热按 Generation 索引筛选实际存在资源的 App，并跳过空批次主线程往返</li>
-          <li>重复刷新登记、状态栏与 UI 资源解析、已取消预览任务提前终止</li>
-          <li>移除未被报告消费的热路径诊断写入，保留完整性校验、回滚与系统原生 fallback</li>
+          <li>主题详情始终显示全部支持功能，缺资源时也可从其他已导入主题补齐</li>
+          <li>每项功能可独立选择来源和开关；关闭后从新 Generation 移除并回退系统原生外观</li>
+          <li>修复关闭或切换 overlay 后仍显示旧 overlay 的问题</li>
+          <li>优化来源选择、首页主题详情入口与 Sheet 层次，保留完整性校验和回滚</li>
         </ul>
       </div>
     </section>
