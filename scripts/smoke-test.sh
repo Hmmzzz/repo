@@ -157,8 +157,8 @@ version_rows = [
     if view.get("class") == "DepictionTableTextView"
     and view.get("title") == "版本"
 ]
-if len(version_rows) != 1 or version_rows[0].get("text") != "0.2.6":
-    raise SystemExit("Smoke test failed: MarkTheme detail version must be 0.2.6.")
+if len(version_rows) != 1 or version_rows[0].get("text") != "0.2.7":
+    raise SystemExit("Smoke test failed: MarkTheme detail version must be 0.2.7.")
 
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
     for phrase in (
@@ -173,12 +173,12 @@ for name, content in (("Sileo", depiction_text), ("web", web_text)):
 for relative_screenshot in ("screenshots/home.png", "screenshots/theme-detail.png"):
     if relative_screenshot not in web_text:
         raise SystemExit(f"Smoke test failed: MarkTheme web depiction is missing {relative_screenshot}.")
-if "MarkTheme 0.2.6" not in depiction_text or "MarkTheme 0.2.6" not in web_text:
+if "MarkTheme 0.2.7" not in depiction_text or "MarkTheme 0.2.7" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme release version is missing from a depiction.")
 if '"text": "iOS 17.0+"' not in depiction_text or "iOS 17+" not in web_text:
     raise SystemExit("Smoke test failed: MarkTheme depictions do not require iOS 17+.")
 for name, content in (("Sileo", depiction_text), ("web", web_text)):
-    for phrase in ("跨主题混搭", "功能独立开关", "旧 overlay", "主题详情"):
+    for phrase in ("补充图标主题", "底层重写", "旧图标残留", "82 大佬", "神之一手"):
         if phrase not in content:
             raise SystemExit(f"Smoke test failed: MarkTheme {name} depiction is missing {phrase}.")
     for stale_phrase in (
@@ -222,7 +222,7 @@ marktheme = [
 ]
 expected_variants = {
     (version, architecture)
-    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8", "0.1.9", "0.2.0", "0.2.1", "0.2.2", "0.2.3", "0.2.5", "0.2.6")
+    for version in ("0.1.0", "0.1.1", "0.1.2", "0.1.3", "0.1.4", "0.1.5", "0.1.6", "0.1.7", "0.1.8", "0.1.9", "0.2.0", "0.2.1", "0.2.2", "0.2.3", "0.2.5", "0.2.6", "0.2.7")
     for architecture in ("iphoneos-arm64", "iphoneos-arm64e")
 }
 actual_variants = {
