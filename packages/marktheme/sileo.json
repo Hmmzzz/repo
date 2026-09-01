@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.2.7"
+          "text": "0.2.8"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.2.7",
+          "title": "MarkTheme 0.2.8",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 主题显示底层全面重写，使用更流畅，切换和刷新更稳定\n- 新增“补充图标主题”，可用第二、第三套图标自动补齐缺失 App\n- 改善通知中心、文件夹、设置、拨号盘、分享页和状态栏等位置的显示\n- 修复偶发不生效、旧图标残留和预览异常；应用后统一提示 Respring\n- 特别感谢 82 大佬，为本次底层重写提供神之一手的优化方向建议",
+          "markdown": "- 修复部分 Anemone 风格图标 overlay（装饰画布大于图标本体）显示尺寸或位置不正确的问题\n- Runtime 先将居中的标准图标画布归一化，再精确适配当前图标的实际几何\n- 通知中心、设置等图标服务显示链路同步采用修正后的几何，overlay 与图标载体精确对齐",
           "tintColor": "#6254E8"
         }
       ]
