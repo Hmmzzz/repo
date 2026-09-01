@@ -35,7 +35,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "版本",
-          "text": "0.2.8"
+          "text": "0.2.9"
         },
         {
           "class": "DepictionTableTextView",
@@ -84,12 +84,12 @@
       "views": [
         {
           "class": "DepictionHeaderView",
-          "title": "MarkTheme 0.2.8",
+          "title": "MarkTheme 0.2.9",
           "useBoldText": true
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- 修复部分 Anemone 风格图标 overlay（装饰画布大于图标本体）显示尺寸或位置不正确的问题\n- Runtime 先将居中的标准图标画布归一化，再精确适配当前图标的实际几何\n- 通知中心、设置等图标服务显示链路同步采用修正后的几何，overlay 与图标载体精确对齐",
+          "markdown": "- 紧急修复功耗问题：修复 ShareSheet 适配器在无关系统守护进程中无限重试，造成异常 CPU 占用、发热与耗电的问题\n- Runtime 注入范围收窄到实际分享界面的精确宿主，适配器改为单次安装，不再产生自循环任务\n- 修复 RootHide 卸载时未清理 Library 中已导入主题资源的问题，重新安装后不再恢复已经卸载的数据",
           "tintColor": "#6254E8"
         }
       ]
