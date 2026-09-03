@@ -221,13 +221,13 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.2.9</h2>
+      <h2>MarkTheme 0.3.0</h2>
       <div class="release">
-        <span class="version">0.2.9</span>
+        <span class="version">0.3.0</span>
         <ul>
-          <li>紧急修复功耗问题：修复 ShareSheet 适配器在无关系统守护进程中无限重试，造成异常 CPU 占用、发热与耗电的问题</li>
-          <li>Runtime 注入范围收窄到实际分享界面的精确宿主，适配器改为单次安装，不再产生自循环任务</li>
-          <li>修复 RootHide 卸载时未清理 Library 中已导入主题资源的问题，重新安装后不再恢复已经卸载的数据</li>
+          <li>修复返回桌面等场景的主题图标过渡动画，正确使用当前主题或系统遮罩，避免方形、错位或旧图标</li>
+          <li>文件夹 overlay 仅覆盖桌面紧凑文件夹，并跟随原生展开与收起进度同步淡出和恢复</li>
+          <li>图标阴影与拖拽、文件夹动画及系统载体透明度同步，减少过渡期间残影、闪烁和状态不同步</li>
         </ul>
       </div>
     </section>
