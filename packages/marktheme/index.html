@@ -221,12 +221,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.3.1</h2>
+      <h2>MarkTheme 0.3.2</h2>
       <div class="release">
-        <span class="version">0.3.1</span>
+        <span class="version">0.3.2</span>
         <ul>
-          <li>修复桌面文件夹 overlay 覆盖原生角标的问题，角标始终显示在 overlay 上方</li>
-          <li>修复文件夹开合动画结束后的静态层级回退，保持背景、小图标、overlay 与角标顺序稳定</li>
+          <li>合并图标遮罩与 overlay 绘制，减少中间位图和重复处理</li>
+          <li>复用公共装饰图片解码，统一限制图标缓存留存预算</li>
+          <li>按实际图标依赖减少无效缓存清理，合并重复请求并保留失败重试</li>
+          <li>复用有界编译资源计划，保留逐次资产完整性校验</li>
         </ul>
       </div>
     </section>
