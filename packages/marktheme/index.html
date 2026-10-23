@@ -221,14 +221,14 @@
     </section>
 
     <section>
-      <h2>MarkTheme 0.3.2</h2>
+      <h2>MarkTheme 0.3.3</h2>
       <div class="release">
-        <span class="version">0.3.2</span>
+        <span class="version">0.3.3</span>
         <ul>
-          <li>合并图标遮罩与 overlay 绘制，减少中间位图和重复处理</li>
-          <li>复用公共装饰图片解码，统一限制图标缓存留存预算</li>
-          <li>按实际图标依赖减少无效缓存清理，合并重复请求并保留失败重试</li>
-          <li>复用有界编译资源计划，保留逐次资产完整性校验</li>
+          <li>补齐部分设置图标的主题读取路径，兼容已确认的新旧图标名称</li>
+          <li>修复 AirDrop 等分享图标经过系统代理后无法匹配主题的问题</li>
+          <li>导入时提示重复 .png 扩展名，避免将无法匹配的图片标记为可用资源</li>
+          <li>保持设置图标原有尺寸与缩放，缺少匹配资源时继续显示系统图标</li>
         </ul>
       </div>
     </section>
